@@ -23,6 +23,8 @@ namespace Durak
         public MainWindow()
         {
             InitializeComponent();
+            lblTest.Content = "Loaded";
+            Card myCard = new Card((Suit)0, (Rank)0);
         }
     }
 }

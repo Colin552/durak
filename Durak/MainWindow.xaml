@@ -17,5 +17,6 @@
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
+        <Label Name="lblTest" Content="Label" Grid.Column="1" HorizontalAlignment="Left" Margin="104,101,0,0" Grid.Row="1" VerticalAlignment="Top" Width="125"/>
     </Grid>
 </Window>
