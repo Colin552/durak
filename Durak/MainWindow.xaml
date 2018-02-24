@@ -5,18 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Durak"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="800">
-    <Grid>
+        Title="MainWindow" Height="752" Width="1222" Background="#FFA6A6A6">
+    <Grid Name="windowGrid">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Label Name="lblTest" Content="Label" Grid.Column="1" HorizontalAlignment="Left" Margin="104,101,0,0" Grid.Row="1" VerticalAlignment="Top" Width="125"/>
+        <Grid Name="playerHandGrid" Grid.Row="2" Margin="10,0,10,0">
+            
+        </Grid>
+
+
     </Grid>
 </Window>
