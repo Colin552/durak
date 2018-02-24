@@ -7,17 +7,23 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="752" Width="1222" Background="#FFA6A6A6">
     <Grid Name="windowGrid">
-        <Grid.ColumnDefinitions>
-        </Grid.ColumnDefinitions>
+        
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Grid Name="playerHandGrid" Grid.Row="2" Margin="10,0,10,0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="200"/>
+        </Grid.ColumnDefinitions>
+        <Canvas Name="playerHandCanvas" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Margin="10,0,10,0" Background="LightBlue">
             
+        </Canvas>
+
+        <Grid Name="opponentHandCanvas" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Margin="10,0,10,0" Background="LightBlue">
+
         </Grid>
-
-
     </Grid>
 </Window>

@@ -89,6 +89,7 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -99,280 +100,267 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\2_of_clubs.png">
+    <Resource Include="Resources\Ace_of_Club.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\2_of_diamonds.png">
+    <Resource Include="Resources\Ace_of_Diamond.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\2_of_hearts.png">
+    <Resource Include="Resources\Ace_of_Heart.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\2_of_spades.png">
+    <Resource Include="Resources\Ace_of_Spade.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\3_of_clubs.png">
+    <Resource Include="Resources\Deuce_of_Club.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\3_of_diamonds.png">
+    <Resource Include="Resources\Deuce_of_Diamond.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\3_of_hearts.png">
+    <Resource Include="Resources\Deuce_of_Heart.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\3_of_spades.png">
+    <Resource Include="Resources\Deuce_of_Spade.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\4_of_clubs.png">
+    <Resource Include="Resources\Eight_of_Club.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\4_of_diamonds.png">
+    <Resource Include="Resources\Eight_of_Diamond.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\4_of_hearts.png">
+    <Resource Include="Resources\Eight_of_Heart.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\4_of_spades.png">
+    <Resource Include="Resources\Eight_of_Spade.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\5_of_clubs.png">
+    <Resource Include="Resources\Five_of_Club.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\5_of_diamonds.png">
+    <Resource Include="Resources\Five_of_Diamond.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\5_of_hearts.png">
+    <Resource Include="Resources\Five_of_Heart.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\5_of_spades.png">
+    <Resource Include="Resources\Five_of_Spade.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\6_of_clubs.png">
+    <None Include="Resources\FoundAt.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Four_of_Club.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\6_of_diamonds.png">
+    <Resource Include="Resources\Four_of_Diamond.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\6_of_hearts.png">
+    <Resource Include="Resources\Four_of_Heart.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\6_of_spades.png">
+    <Resource Include="Resources\Four_of_Spade.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\7_of_clubs.png">
+    <Resource Include="Resources\Jack_of_Club.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\7_of_diamonds.png">
+    <Resource Include="Resources\Jack_of_Diamond.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\7_of_hearts.png">
+    <Resource Include="Resources\Jack_of_Heart.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\7_of_spades.png">
+    <Resource Include="Resources\Jack_of_Spade.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\8_of_clubs.png">
+    <Resource Include="Resources\King_of_Club.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\8_of_diamonds.png">
+    <Resource Include="Resources\King_of_Diamond.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\8_of_hearts.png">
+    <Resource Include="Resources\King_of_Heart.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\8_of_spades.png">
+    <Resource Include="Resources\King_of_Spade.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\9_of_clubs.png">
+    <Resource Include="Resources\Nine_of_Club.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\9_of_diamonds.png">
+    <Resource Include="Resources\Nine_of_Diamond.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\9_of_hearts.png">
+    <Resource Include="Resources\Nine_of_Heart.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\9_of_spades.png">
+    <Resource Include="Resources\Nine_of_Spade.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\10_of_clubs.png">
+    <Resource Include="Resources\Queen_of_Club.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\10_of_diamonds.png">
+    <Resource Include="Resources\Queen_of_Diamond.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\10_of_hearts.png">
+    <Resource Include="Resources\Queen_of_Heart.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\10_of_spades.png">
+    <Resource Include="Resources\Queen_of_Spade.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\ace_of_clubs.png">
+    <Resource Include="Resources\Seven_of_Club.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\ace_of_diamonds.png">
+    <Resource Include="Resources\Seven_of_Diamond.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\ace_of_hearts.png">
+    <Resource Include="Resources\Seven_of_Heart.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\ace_of_spades.png">
+    <Resource Include="Resources\Seven_of_Spade.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\back.png">
+    <Resource Include="Resources\Six_of_Club.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\back%402x.png">
+    <Resource Include="Resources\Six_of_Diamond.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\black_joker.png">
+    <Resource Include="Resources\Six_of_Heart.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\FoundAt.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\jack_of_clubs.png">
+    <Resource Include="Resources\Six_of_Spade.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\jack_of_diamonds.png">
+    <Resource Include="Resources\Ten_of_Club.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\jack_of_hearts.png">
+    <Resource Include="Resources\Ten_of_Diamond.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\jack_of_spades.png">
+    <Resource Include="Resources\Ten_of_Heart.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\king_of_clubs.png">
+    <Resource Include="Resources\Ten_of_Spade.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\king_of_diamonds.png">
+    <Resource Include="Resources\Three_of_Club.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\king_of_hearts.png">
+    <Resource Include="Resources\Three_of_Diamond.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\king_of_spades.png">
+    <Resource Include="Resources\Three_of_Heart.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\queen_of_clubs.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\queen_of_diamonds.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\queen_of_hearts.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\queen_of_spades.png">
+    <Resource Include="Resources\Three_of_Spade.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

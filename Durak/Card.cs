@@ -20,24 +20,42 @@ namespace Durak
         /// </summary>
         /// <param name="newSuit"></param>
         /// <param name="newRank"></param>
-        /// <param name="newCardGraphic"></param>
         public Card(Suit newSuit, Rank newRank)
         {
             suit = newSuit;
             rank = newRank;
+            SetCardImage();
         }
 
         private Card()
         {
         }
 
-        private void SetPicture()
+        /// <summary>
+        /// SetPicture - Sets the card's image.
+        /// </summary>
+        private void SetCardImage()
         {
+            myImage = new Image();
             BitmapImage bitmap = new BitmapImage();
             bitmap.BeginInit();
-            bitmap.UriSource = new Uri("Resources/10_of_clubs.png", UriKind.Relative);
+            bitmap.UriSource = new Uri("pack://application:,,,/Durak;component/Resources/" + CreateImageFileName() + ".png");
             bitmap.EndInit();
+            myImage.Source = bitmap;
             myImage.Stretch = Stretch.Fill;
+            myImage.Width = 100;
+            myImage.Height = 154;
+        }
+
+        /// <summary>
+        /// CreateImageFileName - Creates the file name for the BitmapImage's Uri source. The file names are set to correspond to each picture
+        /// </summary>
+        /// <returns>A string with the file name</returns>
+        private string CreateImageFileName()
+        {
+            String resourceName =  rank.ToString() + "_of_" + suit.ToString();
+
+            return resourceName;
         }
 
         public override string ToString()

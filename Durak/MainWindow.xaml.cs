@@ -23,21 +23,17 @@ namespace Durak
         public MainWindow()
         {
             InitializeComponent();
-            //Card myCard = new Card((Suit)0, (Rank)0);
             
-            Image myImage = new Image();
-            Grid myGrid = windowGrid;
-            BitmapImage bitmap = new BitmapImage();
-            bitmap.BeginInit();
-            bitmap.UriSource = new Uri("pack://application:,,,/Durak;component/Resources/10_of_clubs.png");
-            bitmap.EndInit();
-            myImage.Source = bitmap;
-            myImage.Stretch = Stretch.Fill;
-            myImage.Width = 100;
-            myImage.Height = 154;
-            windowGrid.Children.Add(myImage);
-            myImage.Margin = new Thickness(10,10,0,0);
-            Grid.SetRow(myImage, 1);         
+            // Creates a deck and places the first 6 cards in the player's hand canvas.
+            Deck myDeck = new Deck();
+            for (int i = 0; i < 6; i++)
+            {           
+                Card myCard = myDeck.GetCard(i);
+                Image myImage = myCard.myImage;
+                Console.WriteLine(myCard.myImage.Source);
+                playerHandCanvas.Children.Add(myImage);
+                Canvas.SetLeft(myImage, i * 110);        
+            }
         }
     }
 }
