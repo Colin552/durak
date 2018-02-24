@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using System.Windows.Media;
+using System.Windows.Input;
+using System.Windows;
 
 namespace Durak
 {
@@ -45,6 +47,19 @@ namespace Durak
             myImage.Stretch = Stretch.Fill;
             myImage.Width = 100;
             myImage.Height = 154;
+            myImage.Name = CreateImageFileName();
+            myImage.MouseMove += Card_MouseMove;
+        }
+
+        private void Card_MouseMove(object sender, MouseEventArgs e )
+        {
+            
+            Image cardImage = sender as Image;
+            if (cardImage != null && e.LeftButton == MouseButtonState.Pressed)
+            {
+                DragDrop.DoDragDrop(cardImage, cardImage, DragDropEffects.Move);
+            }
+            
         }
 
         /// <summary>
