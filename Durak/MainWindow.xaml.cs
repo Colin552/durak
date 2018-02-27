@@ -37,7 +37,7 @@ namespace Durak
         }
 
         /// <summary>
-        /// Card_Drop - Handler for the center canvas' drop event.
+        /// Card_Drop - Handler for the center canvas' drop event. (push test for Steven)
         /// </summary>
         /// <param name="sender">The center canvas</param>
         /// <param name="e">The card's image</param>
