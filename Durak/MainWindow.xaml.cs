@@ -1,4 +1,17 @@
-﻿using System;
+﻿/* MainWindow.xaml.cs
+ * 
+ * @Author  Colin Strong
+ * @Author  Calvin Lapp
+ * @Author  Elizabeth Welch
+ * @Author  Steven Hitchon
+ * 
+ * @Since   25-Feb-2018
+ * 
+ * Description:
+ * 
+ */
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -37,7 +50,7 @@ namespace Durak
         }
 
         /// <summary>
-        /// Card_Drop - Handler for the center canvas' drop event. (push test for Steven)
+        /// Card_Drop - Handler for the center canvas' drop event.
         /// </summary>
         /// <param name="sender">The center canvas</param>
         /// <param name="e">The card's image</param>
