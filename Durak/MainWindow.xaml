@@ -22,11 +22,11 @@
             
         </Canvas>
 
-        <Grid Name="opponentHandCanvas" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Margin="10,0,10,0" Background="LightBlue">
+        <Canvas Name="opponentHandCanvas" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Margin="10,0,10,0" Background="LightBlue">
 
-        </Grid>
-        <Grid Name="centerCanvas" AllowDrop="True" Drop="Card_Drop" Grid.Row="1" Grid.Column="1"  Margin="10,0,10,0" Background="LightSteelBlue">
+        </Canvas>
+        <Canvas Name="centerCanvas" AllowDrop="True" Drop="Card_Drop" Grid.Row="1" Grid.Column="1"  Margin="10,0,10,0" Background="LightSteelBlue">
 
-        </Grid>
+        </Canvas>
     </Grid>
 </Window>

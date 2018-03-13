@@ -33,6 +33,7 @@ namespace Durak
     /// </summary>
     public partial class MainWindow : Window
     {
+        public const int CARD_OFFSET = 110;
         public MainWindow()
         {
             InitializeComponent();
@@ -43,9 +44,22 @@ namespace Durak
             {           
                 Card myCard = myDeck.GetCard(i);
                 Image myImage = myCard.myImage;
-                Console.WriteLine(myCard.myImage.Source);
                 playerHandCanvas.Children.Add(myImage);
-                Canvas.SetLeft(myImage, i * 110);        
+                Canvas.SetLeft(myImage, i * CARD_OFFSET);
+                Console.WriteLine(i * CARD_OFFSET);
+            }
+        }
+
+        //Changes the card offsets so that they do not overlap
+        public void Resize()
+        {
+            for (int cardCounter = 0; cardCounter < centerCanvas.Children.Count; cardCounter++)
+            {
+                Image tempImage = (Image)centerCanvas.Children[cardCounter];
+
+                double middle = (centerCanvas.ActualWidth - tempImage.ActualWidth) / 2;
+
+                Canvas.SetLeft(tempImage, middle + CARD_OFFSET * cardCounter);         
             }
         }
 
@@ -62,9 +76,9 @@ namespace Durak
             if (!centerCanvas.Children.Contains(card))
             {
                 centerCanvas.Children.Add(card);
+                Resize();
             }
-            
-            Console.WriteLine(card.Name);
+           
         }
     }
 }
