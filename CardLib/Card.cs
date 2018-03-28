@@ -11,7 +11,7 @@ using System.Windows.Media;
 using System.Windows.Input;
 using System.Windows;
 
-namespace Durak
+namespace CardLib
 {
     public class Card: ICloneable
     {

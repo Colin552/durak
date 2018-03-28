@@ -55,7 +55,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Cards.cs" />
     <Compile Include="Deck.cs" />
+    <Compile Include="Player.cs" />
     <Compile Include="Rank.cs" />
     <Compile Include="Suit.cs" />
     <Page Include="MainWindow.xaml">
