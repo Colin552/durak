@@ -11,10 +11,11 @@ using System.Windows;
 
 namespace Durak
 {
-    public class Card
+    public class Card : ICloneable
     {
         public readonly Suit suit;
         public readonly Rank rank;
+        public static bool isAceHigh = true;
         public Image myImage;
 
         /// <summary>
@@ -76,6 +77,11 @@ namespace Durak
         public override string ToString()
         {
             return "The " + rank + " of " + suit + "s";
+        }
+
+        public object Clone()
+        {
+            return MemberwiseClone();
         }
     }
 }

@@ -55,6 +55,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="CardOutOfRangeException.cs" />
+    <Compile Include="Cards.cs" />
     <Compile Include="Deck.cs" />
     <Compile Include="Rank.cs" />
     <Compile Include="Suit.cs" />
