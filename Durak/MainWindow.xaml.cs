@@ -45,8 +45,7 @@ namespace Durak
         /// <param name="e">The card's image</param>
         private void Card_Drop(object sender, DragEventArgs e)
         {
-            Image card = (Image)e.Data.GetData(typeof(Image));
-
+            Image card = (Image)e.Data.GetData(typeof(Image));         
             GUI.RemoveCardImage(playerHandGrid, card);
             GUI.MoveCardImage(centerGrid, card, 0, true);     
         }

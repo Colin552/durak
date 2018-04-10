@@ -39,7 +39,7 @@ namespace Durak
                 Card myCard = myDeck.GetCard(i);
                 Image myImage = myCard.myImage;
                 GUI.MoveCardImage(GUI.playerGrid, myImage, i, true);
-                humanPlayer.myCards.Add(myCard);           
+                humanPlayer.myCards.Add(myCard);               
             }
 
             for (int i = 6; i < 12; i++)
