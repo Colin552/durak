@@ -55,11 +55,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="CardOutOfRangeException.cs" />
-    <Compile Include="Cards.cs" />
-    <Compile Include="Deck.cs" />
-    <Compile Include="Rank.cs" />
-    <Compile Include="Suit.cs" />
+    <Compile Include="CardLibrary\CardOutOfRangeException.cs" />
+    <Compile Include="CardLibrary\Cards.cs" />
+    <Compile Include="CardLibrary\Deck.cs" />
+    <Compile Include="ComputerPlayer.cs" />
+    <Compile Include="Game.cs" />
+    <Compile Include="GUI.cs" />
+    <Compile Include="CardLibrary\Rank.cs" />
+    <Compile Include="CardLibrary\Suit.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -68,13 +71,15 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Card.cs" />
+    <Compile Include="CardLibrary\Card.cs" />
+    <Compile Include="HumanPlayer.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -365,6 +370,9 @@
     <Resource Include="Resources\Three_of_Spade.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CardBack.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

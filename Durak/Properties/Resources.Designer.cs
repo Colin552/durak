@@ -103,6 +103,16 @@ namespace Durak.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap CardBack {
+            get {
+                object obj = ResourceManager.GetObject("CardBack", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Deuce_of_Club {
             get {
                 object obj = ResourceManager.GetObject("Deuce_of_Club", resourceCulture);

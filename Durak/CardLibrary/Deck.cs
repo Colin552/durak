@@ -43,12 +43,21 @@ namespace Durak
             cards = newCards;
         }
 
+        /// <summary>
+        /// Clones the deck of cards
+        /// </summary>
+        /// <returns>A deck of cards</returns>
         public object Clone()
         {
             Deck newDeck = new Deck(cards.Clone() as Cards);
             return newDeck;
         }
 
+        /// <summary>
+        /// Draws a card from the deck
+        /// </summary>
+        /// <param name="cardNum"></param>
+        /// <returns></returns>
         public Card GetCard(int cardNum)
         {
             if (cardNum >= 0 && cardNum <= 51)
