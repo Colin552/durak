@@ -9,7 +9,7 @@ namespace Durak
     public abstract class Player
     {
         public Cards myCards = new Cards();
-
+        public string name = string.Empty;
         public Player()
         { }
     }

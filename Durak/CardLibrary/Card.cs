@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using System.Windows.Media;
+using System.Drawing;
 using System.Windows.Input;
 using System.Windows;
 
@@ -16,8 +17,8 @@ namespace Durak
         public readonly Suit suit;
         public readonly Rank rank;
         public static bool isAceHigh = true;
-        public Image myImage;
-
+        public System.Windows.Controls.Image myImage;
+        public bool faceUp = true;
         /// <summary>
         /// Parameterized constructor for the Card class
         /// </summary>
@@ -39,16 +40,36 @@ namespace Durak
         /// </summary>
         private void SetCardImage()
         {
-            myImage = new Image();       
+            if (faceUp)
+            {
+                myImage = new System.Windows.Controls.Image();
+                BitmapImage bitmap = new BitmapImage();
+                bitmap.BeginInit();
+                bitmap.UriSource = new Uri("pack://application:,,,/Durak;component/Resources/" + CreateImageFileName() + ".png");
+                bitmap.EndInit();
+                myImage.Source = bitmap;
+                myImage.Stretch = Stretch.Fill;
+                myImage.Width = 100;
+                myImage.Height = 154;
+                myImage.Name = CreateImageFileName();
+            }  
+        }
+
+        public void SetFaceDown()
+        {
+            faceUp = false;
+            
+            myImage = new System.Windows.Controls.Image();           
             BitmapImage bitmap = new BitmapImage();
             bitmap.BeginInit();
-            bitmap.UriSource = new Uri("pack://application:,,,/Durak;component/Resources/" + CreateImageFileName() + ".png");
+            bitmap.UriSource = new Uri("pack://application:,,,/Durak;component/Resources/CardBack.png");
             bitmap.EndInit();
             myImage.Source = bitmap;
             myImage.Stretch = Stretch.Fill;
             myImage.Width = 100;
             myImage.Height = 154;
             myImage.Name = CreateImageFileName();
+            
         }
 
         /// <summary>
@@ -57,7 +78,7 @@ namespace Durak
         /// <returns>A string with the file name</returns>
         private string CreateImageFileName()
         {
-            String resourceName =  rank.ToString() + "_of_" + suit.ToString();
+            String resourceName = rank.ToString() + "_of_" + suit.ToString();
 
             return resourceName;
         }
