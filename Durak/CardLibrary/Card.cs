@@ -69,7 +69,6 @@ namespace Durak
             myImage.Width = 100;
             myImage.Height = 154;
             myImage.Name = CreateImageFileName();
-            
         }
 
         /// <summary>

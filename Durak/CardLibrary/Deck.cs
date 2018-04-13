@@ -10,26 +10,34 @@ namespace Durak
     {
         public event EventHandler LastCardDrawn;
         private Cards cards = new Cards();
-
+        private int numOfCards;
+        public int NumberOfCards
+        {
+            get { return numOfCards; }
+            set { numOfCards = value; }
+        }
         /// <summary>
         /// Default constructor
+        /// Set default cards to 36 ---  ADD FUNCTIONALITY FOR MORE CARDS LATER
         /// </summary>
-        public Deck()
+        public Deck(int numCards = 36)
         {
+            NumberOfCards = numCards;
             for (int suitVal = 0; suitVal < 4; suitVal++)
             {
-                for (int rankVal = 1; rankVal < 14; rankVal++)
+                for (int rankVal = 6; rankVal < 14; rankVal++)
                 {
                     cards.Add(new Card((Suit)suitVal, (Rank)rankVal));
-                }       
+                }
+                cards.Add(new Card((Suit)suitVal, Rank.Ace));
             }
+            this.Shuffle();
         }
 
         /// <summary>
         /// Nondefault constructor. Allows aces to be set high.
         /// </summary>
-        public Deck(bool isAceHigh)
-           : this()
+        public Deck(bool isAceHigh) : this()
         {
             Card.isAceHigh = isAceHigh;
         }
@@ -60,32 +68,42 @@ namespace Durak
         /// <returns></returns>
         public Card GetCard(int cardNum)
         {
-            if (cardNum >= 0 && cardNum <= 51)
+            if (cardNum >= 0 && cardNum <= 35)
             {
-                if ((cardNum == 51) && (LastCardDrawn != null))
+                if ((cardNum == 35) && (LastCardDrawn != null))
                     LastCardDrawn(this, EventArgs.Empty);
                 return cards[cardNum];
             }
             else
             {
                 throw new CardOutOfRangeException((Cards)cards.Clone());
-            }
-                
+            } 
         }
 
+        public Card GetTopCard()
+        {
+            Card returnedCard = null;
+
+            returnedCard = cards[cards.Count - 1];
+            cards.Remove(returnedCard);
+            return returnedCard;
+        }
+        /// <summary>
+        /// MADE STATIC 36 NUMBER FOR CARDS SO NO EXCEPTIOSN FAM 100
+        /// </summary>
         public void Shuffle()
         {
             Cards newDeck = new Cards();
-            bool[] assigned = new bool[52];
+            bool[] assigned = new bool[36];
             Random sourceGen = new Random();
 
-            for (int i = 0; i < 52; i++)
+            for (int i = 0; i < 36; i++)
             {
                 int sourceCard = 0;
                 bool foundCard = false;
                 while (foundCard == false)
                 {
-                    sourceCard = sourceGen.Next(52);
+                    sourceCard = sourceGen.Next(36);
                     if (assigned[sourceCard] == false)
                     {
                         foundCard = true;

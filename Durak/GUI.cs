@@ -19,6 +19,8 @@ namespace Durak
         public static Grid playerGrid;
         public static Grid opponentGrid;
         public static Grid centerGrid;
+        public static Player currentPlayer;
+        public static Card currentCard;
 
         private static int topMargin = -70;
 
@@ -55,7 +57,39 @@ namespace Durak
         /// <param name="imageToRemove"></param>
         public static void RemoveCardImage(Grid removeFromGrid, Image imageToRemove)
         {
-            removeFromGrid.Children.Remove(imageToRemove);
+            bool remove = false;
+            foreach (Card card in currentPlayer.Cards)
+            {
+                if (imageToRemove == card.myImage)
+                {
+                    currentCard = card;
+                    remove = true;
+                }
+            }
+            if(remove)
+            {
+                removeFromGrid.Children.Remove(imageToRemove);
+                currentPlayer.Cards.Remove(currentCard);
+                //System.Diagnostics.Debug.WriteLine("Removed Card: " + currentCard.rank + " " + currentCard.suit);
+                //System.Diagnostics.Debug.WriteLine("Total Cards in hand: " + currentPlayer.Cards.Count());
+                Game.UpdatePlayers(currentPlayer);
+            }
+            OrderCards();
+        }
+        /// <summary>
+        /// Orders the cards in a players hand
+        /// Typically used when drawing so cards will not go over top of one another
+        /// </summary>
+        public static void OrderCards()
+        {
+            for(int i = 0; i < currentPlayer.Cards.Count(); i++)
+            {
+                if (currentPlayer is HumanPlayer)
+                    playerGrid.Children.Remove(currentPlayer.Cards.ElementAt(i).myImage);
+                else
+                    opponentGrid.Children.Remove(currentPlayer.Cards.ElementAt(i).myImage);
+                MoveCardImage(currentPlayer is HumanPlayer ? playerGrid : opponentGrid, currentPlayer.Cards.ElementAt(i).myImage, i, 0);
+            }
         }
 
         /// <summary>

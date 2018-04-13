@@ -8,6 +8,18 @@ namespace Durak
 {
     public class ComputerPlayer : Player
     {
+        public ComputerPlayer()
+        {
+            Name = "Computer";
+            Cards = new Cards();
+        }
+        public override void Attack()
+        {
 
+        }
+        public override void Defend()
+        {
+
+        }
     }
 }
