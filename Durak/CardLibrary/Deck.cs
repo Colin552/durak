@@ -6,11 +6,13 @@ using System.Threading.Tasks;
 
 namespace Durak
 {
-    public class Deck: ICloneable
+    public class Deck : ICloneable
     {
+        public event EventHandler LastCardDrawn;
         private Cards cards = new Cards();
+
         /// <summary>
-        /// Default constructor which makes a deck of 52 cards
+        /// Default constructor
         /// </summary>
         public Deck()
         {
@@ -18,20 +20,41 @@ namespace Durak
             {
                 for (int rankVal = 1; rankVal < 14; rankVal++)
                 {
-                    cards.Add(new Card((Rank)rankVal, (Suit)suitVal));
-                }
+                    cards.Add(new Card((Suit)suitVal, (Rank)rankVal));
+                }       
             }
         }
+
         /// <summary>
-        /// Parameterized constructor for creating a deck of cards
+        /// Nondefault constructor. Allows aces to be set high.
+        /// </summary>
+        public Deck(bool isAceHigh)
+           : this()
+        {
+            Card.isAceHigh = isAceHigh;
+        }
+
+        /// <summary>
+        /// Nondefault cosntructor. Takes a Cards object.
         /// </summary>
         /// <param name="newCards"></param>
         private Deck(Cards newCards)
         {
             cards = newCards;
         }
+
         /// <summary>
-        /// Gets a card from the deck
+        /// Clones the deck of cards
+        /// </summary>
+        /// <returns>A deck of cards</returns>
+        public object Clone()
+        {
+            Deck newDeck = new Deck(cards.Clone() as Cards);
+            return newDeck;
+        }
+
+        /// <summary>
+        /// Draws a card from the deck
         /// </summary>
         /// <param name="cardNum"></param>
         /// <returns></returns>
@@ -39,21 +62,23 @@ namespace Durak
         {
             if (cardNum >= 0 && cardNum <= 51)
             {
+                if ((cardNum == 51) && (LastCardDrawn != null))
+                    LastCardDrawn(this, EventArgs.Empty);
                 return cards[cardNum];
             }
             else
             {
-                throw (new System.ArgumentOutOfRangeException("cardNum", cardNum, "Value must be between 0 and 51."));
+                throw new CardOutOfRangeException((Cards)cards.Clone());
             }
+                
         }
-        /// <summary>
-        /// Shuffles the deck
-        /// </summary>
+
         public void Shuffle()
         {
             Cards newDeck = new Cards();
             bool[] assigned = new bool[52];
             Random sourceGen = new Random();
+
             for (int i = 0; i < 52; i++)
             {
                 int sourceCard = 0;
@@ -62,21 +87,14 @@ namespace Durak
                 {
                     sourceCard = sourceGen.Next(52);
                     if (assigned[sourceCard] == false)
+                    {
                         foundCard = true;
+                    }
                 }
                 assigned[sourceCard] = true;
                 newDeck.Add(cards[sourceCard]);
             }
             newDeck.CopyTo(cards);
-        }
-        /// <summary>
-        /// Clones the deck to a new object
-        /// </summary>
-        /// <returns></returns>
-        public object Clone()
-        {
-            Deck newDeck = new Deck(cards.Clone() as Cards);
-            return newDeck;
         }
     }
 }

@@ -21,52 +21,33 @@ namespace Durak
     /// </summary>
     public partial class MainWindow : Window
     {
-        public const int CARD_OFFSET = 110;
         public MainWindow()
         {
             InitializeComponent();
-            
-            // Creates a deck and places the first 6 card's graphic in the player's hand canvas.
-            Deck myDeck = new Deck();
-            for (int i = 0; i < 6; i++)
-            {           
-                Card myCard = myDeck.GetCard(i);
-                Image myImage = myCard.myImage;
-                playerHandCanvas.Children.Add(myImage);
-                Canvas.SetLeft(myImage, i * CARD_OFFSET);
-                Console.WriteLine(i * CARD_OFFSET);
-            }
-        }
 
-        //Changes the card offsets so that they do not overlap
-        public void Resize()
-        {
-            for (int cardCounter = 0; cardCounter < centerCanvas.Children.Count; cardCounter++)
-            {
-                Image tempImage = (Image)centerCanvas.Children[cardCounter];
+            //Set the GUI class's variables
+            GUI.playerGrid = playerHandGrid;
+            GUI.opponentGrid = opponentHandGrid;
+            GUI.centerGrid = centerGrid;
 
-                double middle = (centerCanvas.ActualWidth - tempImage.ActualWidth) / 2;
-
-                Canvas.SetLeft(tempImage, middle + CARD_OFFSET * cardCounter);         
-            }
+            Game.Play();
         }
 
         /// <summary>
-        /// Card_Drop - Handler for the center canvas' drop event.
+        /// Card_Drop - Handler for the center grid's drop event.
         /// </summary>
-        /// <param name="sender">The center canvas</param>
+        /// <param name="sender">The player's canvas</param>
         /// <param name="e">The card's image</param>
         private void Card_Drop(object sender, DragEventArgs e)
         {
-            Image card = (Image)e.Data.GetData(typeof(Image));
+            Image card = (Image)e.Data.GetData(typeof(Image));         
+            GUI.RemoveCardImage(playerHandGrid, card);
+            GUI.MoveCardImage(centerGrid, card, 0, 0);     
+        }
 
-            playerHandCanvas.Children.Remove(card);
-            if (!centerCanvas.Children.Contains(card))
-            {
-                centerCanvas.Children.Add(card);
-                Resize();
-            }
-           
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Game.EndTurn();
         }
     }
 }
