@@ -21,16 +21,21 @@ namespace Durak
     /// </summary>
     public partial class MainWindow : Window
     {
+        Game game = new Game();
+        GUI gui = new GUI();
         public MainWindow()
         {
             InitializeComponent();
 
+            
             //Set the GUI class's variables
-            GUI.playerGrid = playerHandGrid;
-            GUI.opponentGrid = opponentHandGrid;
-            GUI.centerGrid = centerGrid;
+            gui.playerGrid = playerHandGrid;
+            gui.opponentGrid = opponentHandGrid;
+            gui.centerGrid = centerGrid;
+            gui.myGame = game;
+            game.MyGUI = gui;
 
-            Game.Play();
+            game.Play();
         }
 
         /// <summary>
@@ -40,14 +45,14 @@ namespace Durak
         /// <param name="e">The card's image</param>
         private void Card_Drop(object sender, DragEventArgs e)
         {
-            Image card = (Image)e.Data.GetData(typeof(Image));         
-            GUI.RemoveCardImage(playerHandGrid, card);
-            GUI.MoveCardImage(centerGrid, card, 0, 0);     
+            Image card = (Image)e.Data.GetData(typeof(Image));
+            gui.RemoveCardImage(playerHandGrid, card);
+            gui.MoveCardImage(centerGrid, card, 0, 0);     
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            Game.EndTurn();
+            game.EndTurn();
         }
     }
 }

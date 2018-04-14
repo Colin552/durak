@@ -11,22 +11,23 @@ namespace Durak
     /// <summary>
     /// This class will contain the game loop and functions relating to playing the game
     /// </summary>
-    public static class Game
+    public class Game
     {
         // Static variables for the deck, human and computer player
-        private static Deck myDeck = new Deck();
-        private static HumanPlayer humanPlayer = new HumanPlayer("Runescape");
-        private static ComputerPlayer computerPlayer = new ComputerPlayer();
-        public static HumanPlayer HumanPlayer { get => humanPlayer; set => humanPlayer = value; }
-        public static ComputerPlayer ComputerPlayer { get => computerPlayer; set => computerPlayer = value; }
-        public static Deck MyDeck { get => myDeck; set => myDeck = value; }
-
+        private GUI myGUI;
+        private Deck myDeck = new Deck();
+        private HumanPlayer humanPlayer = new HumanPlayer("Runescape");
+        private ComputerPlayer computerPlayer = new ComputerPlayer();
+        public HumanPlayer HumanPlayer { get => humanPlayer; set => humanPlayer = value; }
+        public ComputerPlayer ComputerPlayer { get => computerPlayer; set => computerPlayer = value; }
+        public Deck MyDeck { get => myDeck; set => myDeck = value; }
+        public GUI MyGUI { get => myGUI; set => myGUI = value; }
         /// <summary>
         /// Calls from the GUI class so that the Player objects in the game get an updated hand
         /// When they play a card
         /// </summary>
         /// <param name="player"></param>
-        public static void UpdatePlayers(Player player)
+        public void UpdatePlayers(Player player)
         {
             if(player is HumanPlayer)
             {
@@ -40,7 +41,7 @@ namespace Durak
         /// <summary>
         /// Play - The main game loop
         /// </summary>
-        public static void Play()
+        public void Play()
         {
             InitialDraw();
         }
@@ -48,7 +49,7 @@ namespace Durak
         /// <summary>
         /// InitialDraw - Draws the initial 6 cards
         /// </summary>
-        public static void InitialDraw()
+        public void InitialDraw()
         {
             // Changed code from here previously
             // before it was 'Card myCard = myDeck.GetCard(i)'
@@ -62,7 +63,7 @@ namespace Durak
             {
                 Card myCard = MyDeck.GetTopCard();
                 myCard.SetFaceDown();
-                GUI.MoveCardImage(GUI.opponentGrid, myCard.myImage, i - 6, 0);
+                myGUI.MoveCardImage(myGUI.opponentGrid, myCard.myImage, i - 6, 0);
                 ComputerPlayer.Cards.Add(MyDeck.GetTopCard());
             }
 
@@ -106,35 +107,37 @@ namespace Durak
             }*/
             #endregion
         }
+
+
         /// <summary>
         /// Draws a new card from the deck
         /// Sends over the card and the Player object to the GUI class
         /// Attempted to be able to send all the 
         /// </summary>
         /// <param name="player"></param>
-        public static void Draw(HumanPlayer player)
+        public void Draw(HumanPlayer player)
         {
             for (int i = player.Cards.Count(); i < 6; i++)
             {
                 Card myCard = MyDeck.GetTopCard();
-                GUI.currentCard = myCard;
+                myGUI.currentCard = myCard;
                 System.Diagnostics.Debug.WriteLine("New Card: " + myCard);
-                GUI.MoveCardImage(GUI.playerGrid, myCard.myImage, i, 0);
+                myGUI.MoveCardImage(myGUI.playerGrid, myCard.myImage, i, 0);
                 player.Cards.Add(myCard);
             }
-            GUI.currentPlayer = player;
+            myGUI.currentPlayer = player;
             System.Diagnostics.Debug.WriteLine("Cards: " + player.Cards.Count());
         }
 
-        public static void Draw(ComputerPlayer player)
+        public void Draw(ComputerPlayer player)
         {
-            GUI.currentPlayer = player;
+            myGUI.currentPlayer = player;
             for (int i = player.Cards.Count(); i < 6; i++)
             {
                 Card myCard = MyDeck.GetTopCard();
                 myCard.SetFaceDown();
-                GUI.currentCard = myCard;
-                GUI.MoveCardImage(GUI.opponentGrid, myCard.myImage, i -6, 0);
+                myGUI.currentCard = myCard;
+                myGUI.MoveCardImage(myGUI.opponentGrid, myCard.myImage, i - 6, 0);
                 player.Cards.Add(myCard);
             }
         }
@@ -142,10 +145,10 @@ namespace Durak
         /// <summary>
         /// EndTurn - Called when the player ends his turn
         /// </summary>
-        public static void EndTurn()
+        public void EndTurn()
         {
             // Draw(computerPlayer);    Big boy issues
-            GUI.OrderCards();
+            myGUI.OrderCards();
             Draw(HumanPlayer);
             System.Diagnostics.Debug.WriteLine("Clicked");
         }

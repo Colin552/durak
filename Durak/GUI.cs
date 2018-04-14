@@ -14,17 +14,18 @@ namespace Durak
     /// <summary>
     /// Static class contains all of the functions for interacting with the main window GUI.
     /// </summary>
-    public static class GUI
+    public class GUI
     {
-        public static Grid playerGrid;
-        public static Grid opponentGrid;
-        public static Grid centerGrid;
-        public static Player currentPlayer;
-        public static Card currentCard;
+        public Grid playerGrid;
+        public Grid opponentGrid;
+        public Grid centerGrid;
+        public Player currentPlayer;
+        public Card currentCard;
+        public Game myGame;
 
         private static int topMargin = -70;
 
-        public static void MoveCardImage(Grid toGrid, Image imageToMove, int gridColumn, int row)
+        public void MoveCardImage(Grid toGrid, Image imageToMove, int gridColumn, int row)
         {
             // Check if the grid already contains the card
             if (!toGrid.Children.Contains(imageToMove))
@@ -55,7 +56,7 @@ namespace Durak
         /// </summary>
         /// <param name="removeFromGrid"></param>
         /// <param name="imageToRemove"></param>
-        public static void RemoveCardImage(Grid removeFromGrid, Image imageToRemove)
+        public void RemoveCardImage(Grid removeFromGrid, Image imageToRemove)
         {
             bool remove = false;
             foreach (Card card in currentPlayer.Cards)
@@ -72,7 +73,7 @@ namespace Durak
                 currentPlayer.Cards.Remove(currentCard);
                 //System.Diagnostics.Debug.WriteLine("Removed Card: " + currentCard.rank + " " + currentCard.suit);
                 //System.Diagnostics.Debug.WriteLine("Total Cards in hand: " + currentPlayer.Cards.Count());
-                Game.UpdatePlayers(currentPlayer);
+                myGame.UpdatePlayers(currentPlayer);
             }
             OrderCards();
         }
@@ -80,7 +81,7 @@ namespace Durak
         /// Orders the cards in a players hand
         /// Typically used when drawing so cards will not go over top of one another
         /// </summary>
-        public static void OrderCards()
+        public void OrderCards()
         {
             for(int i = 0; i < currentPlayer.Cards.Count(); i++)
             {
