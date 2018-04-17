@@ -115,12 +115,36 @@ namespace Durak
         public void PlaceTrumpCard(Card trumpCard)
         {
             RotateTransform horizontalTransform = new RotateTransform(90);
-            Thickness cardMargin = new Thickness(0, 0, -300, 0);
+            Thickness cardMargin = new Thickness(0, 60, -300, 0);
             
             Image trumpCardImage = trumpCard.myImage;
             trumpCardImage.RenderTransform = horizontalTransform;
             windowGrid.Children.Add(trumpCardImage);
             trumpCardImage.SetValue(Grid.MarginProperty, cardMargin);
+
+            PlaceDeck();
+        }
+
+        /// <summary>
+        /// Places the deck image in the top left corner above the trump card
+        /// </summary>
+        public void PlaceDeck()
+        {
+            Image deckImage = new Image();
+            BitmapImage bitmap = new BitmapImage();
+            bitmap.BeginInit();
+            bitmap.UriSource = new Uri("pack://application:,,,/Durak;component/Resources/deck.png");
+            bitmap.EndInit();
+            deckImage.Source = bitmap;
+            deckImage.Stretch = Stretch.Fill;
+            deckImage.Width = 110;
+            deckImage.Height = 170;
+            deckImage.Name = "deck";
+
+            Thickness deckMargin = new Thickness(0, 0, 0, 0);
+            windowGrid.Children.Add(deckImage);
+            deckImage.SetValue(Grid.MarginProperty, deckMargin);
+
         }
 
         public void SetLabelText(String message)

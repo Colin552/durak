@@ -133,6 +133,9 @@
   <data name="CardBack" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\CardBack.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="deck" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\deck.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Deuce_of_Club" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Deuce_of_Club.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
