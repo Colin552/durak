@@ -22,6 +22,22 @@ namespace Durak
         public ComputerPlayer ComputerPlayer { get => computerPlayer; set => computerPlayer = value; }
         public Deck MyDeck { get => myDeck; set => myDeck = value; }
         public GUI MyGUI { get => myGUI; set => myGUI = value; }
+        public Suit trumpSuit;
+
+        public Player attackingPlayer;
+
+        /// <summary>
+        /// Play - The main game loop
+        /// </summary>
+        public void Play()
+        {
+            InitialDraw();
+            SetTrump();
+            attackingPlayer = DetermineAttacker();
+
+            //do { } while (!CheckForWinner());
+        }
+
         /// <summary>
         /// Calls from the GUI class so that the Player objects in the game get an updated hand
         /// When they play a card
@@ -38,13 +54,7 @@ namespace Durak
             System.Diagnostics.Debug.WriteLine(player.Name + "'s remaining total cards after replacing: " + player.Cards.Count());
         }
 
-        /// <summary>
-        /// Play - The main game loop
-        /// </summary>
-        public void Play()
-        {
-            InitialDraw();
-        }
+
 
         /// <summary>
         /// InitialDraw - Draws the initial 6 cards
@@ -66,48 +76,66 @@ namespace Durak
                 myGUI.MoveCardImage(myGUI.opponentGrid, myCard.myImage, i - 6, 0);
                 ComputerPlayer.Cards.Add(MyDeck.GetTopCard());
             }
-
-            #region
-            // Testing how many cards can be added to the player's hand
-            /*
-            for (int i = 0; i < 52; i++)
-            {
-                Card myCard = myDeck.GetCard(i);
-                Image myImage = myCard.myImage;
-                
-                humanPlayer.myCards.Add(myCard);
-                if (i < 8)
-                {
-                    GUI.MoveCardImage(GUI.playerGrid, myImage, i, 0);
-                }
-                else if (i < 16)
-                {
-                    GUI.MoveCardImage(GUI.playerGrid, myImage, i - 8, 1);
-                }
-                else if (i < 24)
-                {
-                    GUI.MoveCardImage(GUI.playerGrid, myImage, i - 16, 2);
-                }
-                else if (i < 32)
-                {
-                    GUI.MoveCardImage(GUI.playerGrid, myImage, i - 24, 3);
-                }
-                else if (i < 40)
-                {
-                    GUI.MoveCardImage(GUI.playerGrid, myImage, i - 32, 4);
-                }
-                else if (i < 48)
-                {
-                    GUI.MoveCardImage(GUI.playerGrid, myImage, i - 40, 5);
-                }
-                else
-                {
-                    GUI.MoveCardImage(GUI.playerGrid, myImage, i - 48, 6);
-                }
-            }*/
-            #endregion
+         
         }
 
+        /// <summary>
+        /// Sets the trump suit for the game
+        /// </summary>
+        public void SetTrump()
+        {
+            Card trumpCard = MyDeck.GetTopCard();
+            trumpSuit = trumpCard.suit;
+            myGUI.PlaceTrumpCard(trumpCard);
+            Console.WriteLine("Trump Suit: " + trumpSuit);
+        }
+
+        /// <summary>
+        /// Determines the attacking player
+        /// </summary>
+        /// <returns>The player who is attacking</returns>
+        public Player DetermineAttacker()
+        {
+            //Temporary values set higher than a king.
+            Rank humanLowestRank = (Rank)14;
+            Rank computerLowestRank = (Rank)14;
+
+            //Loops through the computer and human player's hands and finds their lowest rank of the trump suit
+            for (int i = 1; humanPlayer.Cards.Count > i; i++)
+            {
+                if (humanPlayer.Cards[i - 1].rank < humanLowestRank && humanPlayer.Cards[i-1].suit == trumpSuit)
+                {
+                    humanLowestRank = humanPlayer.Cards[i - 1].rank;
+                }
+            }
+
+            for (int i = 1; humanPlayer.Cards.Count > i; i++)
+            {
+                if (computerPlayer.Cards[i - 1].rank < computerLowestRank && computerPlayer.Cards[i - 1].suit == trumpSuit)
+                {
+                    computerLowestRank = computerPlayer.Cards[i - 1].rank;
+                }
+            }
+
+            Console.WriteLine("Human Lowest Rank: " + humanLowestRank);
+            Console.WriteLine("Computer Lowest Rank: " + computerLowestRank);
+            // Returns the player with the lowest rank of the trump suit
+            if (computerLowestRank > humanLowestRank)
+            {
+                MyGUI.SetLabelText("You are attacking");
+                return humanPlayer;
+            }
+            else if (computerLowestRank < humanLowestRank)
+            {
+                MyGUI.SetLabelText("Computer is attacking");
+                return computerPlayer;
+            }
+            else
+            {
+                MyGUI.SetLabelText("Tie, you are attacking");
+                return humanPlayer;
+            }
+        }
 
         /// <summary>
         /// Draws a new card from the deck
@@ -153,5 +181,24 @@ namespace Durak
             System.Diagnostics.Debug.WriteLine("Clicked");
         }
 
+        /// <summary>
+        /// Checks if one of the players has won
+        /// </summary>
+        /// <returns></returns>
+        public bool CheckForWinner()
+        {
+            if (humanPlayer.Cards.Count == 0)
+            {
+                return true;
+            }
+            else if (computerPlayer.Cards.Count == 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }

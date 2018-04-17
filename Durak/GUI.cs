@@ -19,9 +19,11 @@ namespace Durak
         public Grid playerGrid;
         public Grid opponentGrid;
         public Grid centerGrid;
+        public Grid windowGrid;
         public Player currentPlayer;
         public Card currentCard;
         public Game myGame;
+        public Label gameInfoLabel;
 
         private static int topMargin = -70;
 
@@ -38,7 +40,6 @@ namespace Durak
                 Thickness cardMargin = new Thickness(0, topMargin + (row * -topMargin), 0, 0);
                 imageToMove.SetValue(Grid.MarginProperty, cardMargin);
 
-                Console.WriteLine(topMargin + (row * -topMargin));
                 // Add or remove the event handler from the card's image depending on whether it is going to the Player's hand or not
                 if (toGrid == playerGrid)
                 {
@@ -98,15 +99,33 @@ namespace Durak
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        public static void Card_MouseMove(object sender, MouseEventArgs e)
+        public void Card_MouseMove(object sender, MouseEventArgs e)
         {
-
             Image cardImage = sender as Image;
             if (cardImage != null && e.LeftButton == MouseButtonState.Pressed)
             {
                 DragDrop.DoDragDrop(cardImage, cardImage, DragDropEffects.Move);
             }
+        }
 
+        /// <summary>
+        /// Places the trump card in the top left corner of the window, rotates it 90 degrees and sets its margin
+        /// </summary>
+        /// <param name="trumpCard">The trump card</param>
+        public void PlaceTrumpCard(Card trumpCard)
+        {
+            RotateTransform horizontalTransform = new RotateTransform(90);
+            Thickness cardMargin = new Thickness(0, 0, -300, 0);
+            
+            Image trumpCardImage = trumpCard.myImage;
+            trumpCardImage.RenderTransform = horizontalTransform;
+            windowGrid.Children.Add(trumpCardImage);
+            trumpCardImage.SetValue(Grid.MarginProperty, cardMargin);
+        }
+
+        public void SetLabelText(String message)
+        {
+            gameInfoLabel.Content = message;
         }
     }
 }

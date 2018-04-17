@@ -32,7 +32,9 @@ namespace Durak
             gui.playerGrid = playerHandGrid;
             gui.opponentGrid = opponentHandGrid;
             gui.centerGrid = centerGrid;
+            gui.windowGrid = windowGrid;
             gui.myGame = game;
+            gui.gameInfoLabel = lblGameInfo;
             game.MyGUI = gui;
 
             game.Play();
