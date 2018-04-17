@@ -15,7 +15,7 @@ namespace Durak
     public abstract class Player
     {
         private Cards myCards = new Cards();
-        public bool isAttacking;
+        private bool isAttacking;
         private string myName;
         public string Name
         {

@@ -12,20 +12,67 @@ using System.Windows;
 namespace Durak
 {
     /// <summary>
-    /// Static class contains all of the functions for interacting with the main window GUI.
+    /// This class contains all of the functions for interacting with the main window GUI.
     /// </summary>
     public class GUI
     {
-        public Grid playerGrid;
-        public Grid opponentGrid;
-        public Grid centerGrid;
-        public Grid windowGrid;
-        public Player currentPlayer;
-        public Card currentCard;
-        public Game myGame;
-        public Label gameInfoLabel;
+        private Grid playerGrid;
+        private Grid opponentGrid;
+        private Grid centerGrid;
+        private Grid windowGrid;
+        private Player currentPlayer;
+        private Card currentCard;
+        private Game myGame;
+        private Label gameInfoLabel;
 
-        private static int topMargin = -70;
+        public Grid PlayerGrid
+        {
+            get { return playerGrid; }
+            set { playerGrid = value; }
+        }
+
+        public Grid OpponentGrid
+        {
+            get { return opponentGrid; }
+            set { opponentGrid = value; }
+        }
+
+        public Grid CenterGrid
+        {
+            get { return centerGrid; }
+            set { centerGrid = value; }
+        }
+
+        public Grid WindowGrid
+        {
+            get { return windowGrid; }
+            set { windowGrid = value; }
+        }
+
+        public Player CurrentPlayer
+        {
+            get { return currentPlayer; }
+            set { currentPlayer = value; }
+        }
+
+        public Card CurrentCard
+        {
+            get { return currentCard; }
+            set { currentCard = value; }
+        }
+
+        public Game MyGame
+        {
+            get { return myGame; }
+            set { myGame = value; }
+        }
+
+        public Label GameInfoLabel
+        {
+            get { return gameInfoLabel; }
+            set { gameInfoLabel = value; }
+        }
+        private int topMargin = -70;
 
         public void MoveCardImage(Grid toGrid, Image imageToMove, int gridColumn, int row)
         {
@@ -142,7 +189,7 @@ namespace Durak
             deckImage.Name = "deck";
 
             Thickness deckMargin = new Thickness(0, 0, 0, 0);
-            windowGrid.Children.Add(deckImage);
+            WindowGrid.Children.Add(deckImage);
             deckImage.SetValue(Grid.MarginProperty, deckMargin);
 
         }

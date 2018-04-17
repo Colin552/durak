@@ -29,12 +29,12 @@ namespace Durak
 
             
             //Set the GUI class's variables
-            gui.playerGrid = playerHandGrid;
-            gui.opponentGrid = opponentHandGrid;
-            gui.centerGrid = centerGrid;
-            gui.windowGrid = windowGrid;
-            gui.myGame = game;
-            gui.gameInfoLabel = lblGameInfo;
+            gui.PlayerGrid = playerHandGrid;
+            gui.OpponentGrid = opponentHandGrid;
+            gui.CenterGrid = centerGrid;
+            gui.WindowGrid = windowGrid;
+            gui.MyGame = game;
+            gui.GameInfoLabel = lblGameInfo;
             game.MyGUI = gui;
 
             game.Play();

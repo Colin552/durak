@@ -73,7 +73,7 @@ namespace Durak
             {
                 Card myCard = MyDeck.GetTopCard();
                 myCard.SetFaceDown();
-                myGUI.MoveCardImage(myGUI.opponentGrid, myCard.myImage, i - 6, 0);
+                myGUI.MoveCardImage(myGUI.OpponentGrid, myCard.myImage, i - 6, 0);
                 ComputerPlayer.Cards.Add(MyDeck.GetTopCard());
             }
          
@@ -148,24 +148,24 @@ namespace Durak
             for (int i = player.Cards.Count(); i < 6; i++)
             {
                 Card myCard = MyDeck.GetTopCard();
-                myGUI.currentCard = myCard;
+                myGUI.CurrentCard = myCard;
                 System.Diagnostics.Debug.WriteLine("New Card: " + myCard);
-                myGUI.MoveCardImage(myGUI.playerGrid, myCard.myImage, i, 0);
+                myGUI.MoveCardImage(myGUI.PlayerGrid, myCard.myImage, i, 0);
                 player.Cards.Add(myCard);
             }
-            myGUI.currentPlayer = player;
+            myGUI.CurrentPlayer = player;
             System.Diagnostics.Debug.WriteLine("Cards: " + player.Cards.Count());
         }
 
         public void Draw(ComputerPlayer player)
         {
-            myGUI.currentPlayer = player;
+            myGUI.CurrentPlayer = player;
             for (int i = player.Cards.Count(); i < 6; i++)
             {
                 Card myCard = MyDeck.GetTopCard();
                 myCard.SetFaceDown();
-                myGUI.currentCard = myCard;
-                myGUI.MoveCardImage(myGUI.opponentGrid, myCard.myImage, i - 6, 0);
+                myGUI.CurrentCard = myCard;
+                myGUI.MoveCardImage(myGUI.OpponentGrid, myCard.myImage, i - 6, 0);
                 player.Cards.Add(myCard);
             }
         }
