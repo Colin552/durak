@@ -83,9 +83,14 @@ namespace Durak
         public Card GetTopCard()
         {
             Card returnedCard = null;
-
-            returnedCard = cards[cards.Count - 1];
-            cards.Remove(returnedCard);
+            System.Diagnostics.Debug.WriteLine("Cards left: " + cards.Count());
+            if(cards.Count() > 0)
+            { 
+                returnedCard = cards[cards.Count - 1];
+                cards.Remove(returnedCard);
+            }
+            else
+                System.Diagnostics.Debug.WriteLine("No cards left in deck");
             return returnedCard;
         }
         /// <summary>

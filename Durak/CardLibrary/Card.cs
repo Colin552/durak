@@ -71,6 +71,12 @@ namespace Durak
             myImage.Name = CreateImageFileName();
         }
 
+        public void SetFaceUp()
+        {
+            faceUp = true;
+            SetCardImage();
+        }
+
         /// <summary>
         /// CreateImageFileName - Creates the file name for the BitmapImage's Uri source. The file names are set to correspond to each picture
         /// </summary>

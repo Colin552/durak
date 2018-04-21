@@ -36,8 +36,6 @@ namespace Durak
             gui.MyGame = game;
             gui.GameInfoLabel = lblGameInfo;
             game.MyGUI = gui;
-
-            game.Play();
         }
 
         /// <summary>
@@ -55,6 +53,18 @@ namespace Durak
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             game.EndTurn();
+        }
+        /// <summary>
+        /// Once clicked, starts the game
+        /// This was added to assist with things not happening right away and giving errors
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnPlay_Click(object sender, RoutedEventArgs e)
+        {
+            game.MyGUI.PlayGame = true;
+            btnPlay.Visibility = Visibility.Hidden;
+            game.Play();
         }
     }
 }

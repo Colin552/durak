@@ -1,4 +1,13 @@
-﻿using System;
+﻿/*
+ * 
+ * 
+ * 
+ * 
+ * 
+ */
+
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,18 +31,57 @@ namespace Durak
         public ComputerPlayer ComputerPlayer { get => computerPlayer; set => computerPlayer = value; }
         public Deck MyDeck { get => myDeck; set => myDeck = value; }
         public GUI MyGUI { get => myGUI; set => myGUI = value; }
-        public Suit trumpSuit;
+        public bool EndOfTurn { get => endTurn; set => endTurn = value; }
+        public Card ComputerDecidedCard { get => computerDecidedCard; set => computerDecidedCard = value; }
 
-        public Player attackingPlayer;
+        public Suit trumpSuit;
+        private bool endTurn = true;
+        private Card computerDecidedCard;
+
+        public static Player attackingPlayer;
 
         /// <summary>
         /// Play - The main game loop
         /// </summary>
         public void Play()
         {
+            myGUI.CurrentPlayer = humanPlayer;
             InitialDraw();
             SetTrump();
             attackingPlayer = DetermineAttacker();
+            //myGUI.PlayGame is true once the 'Play' button is clicked
+            while (myGUI.PlayGame && EndOfTurn)
+            {
+                myGUI.CurrentPlayer = humanPlayer;
+                EndOfTurn = false;
+                if (attackingPlayer is ComputerPlayer)
+                {
+                    int cardIndex = 0;
+                    // Allow the computer to make a decision
+                    ComputerDecidedCard = computerPlayer.MakeMove(trumpSuit);
+                    // For each of the computers cards in hand, find which one matches the returned\
+                    // Choice for card to play and get its index
+                    for (int i = 6; i < computerPlayer.Cards.Count() + 6; i++)
+                    {
+                        if (computerPlayer.Cards[i - 6] == ComputerDecidedCard)
+                            cardIndex = i;
+                    }
+                    // Set the current player to the computer 
+                    myGUI.CurrentPlayer = computerPlayer;
+                    // Remove the card from the grid
+                    myGUI.RemoveCardImage(myGUI.OpponentGrid, ComputerDecidedCard.myImage);
+                    // Move the card to the middle
+                    myGUI.MoveCardImage(myGUI.CenterGrid, ComputerDecidedCard.myImage, 0, 0);
+                    // Set the current player to the human Player since the computers turn is done
+                    myGUI.CurrentPlayer = humanPlayer;
+                }
+                else
+                {
+                    myGUI.CurrentPlayer = humanPlayer;
+                    System.Diagnostics.Debug.WriteLine("Human player made a move");
+                }
+            }
+
 
             //do { } while (!CheckForWinner());
         }
@@ -51,7 +99,6 @@ namespace Durak
             }
             else
                 ComputerPlayer.Cards = player.Cards;
-            System.Diagnostics.Debug.WriteLine(player.Name + "'s remaining total cards after replacing: " + player.Cards.Count());
         }
 
 
@@ -74,8 +121,10 @@ namespace Durak
                 Card myCard = MyDeck.GetTopCard();
                 myCard.SetFaceDown();
                 myGUI.MoveCardImage(myGUI.OpponentGrid, myCard.myImage, i - 6, 0);
-                ComputerPlayer.Cards.Add(MyDeck.GetTopCard());
+                ComputerPlayer.Cards.Add(myCard);
+                System.Diagnostics.Debug.WriteLine("---------ADDED CARD: " + myCard.rank + " OF " + myCard.suit + "------------------");
             }
+            //MessageBox.Show("Wait");
          
         }
 
@@ -148,13 +197,17 @@ namespace Durak
             for (int i = player.Cards.Count(); i < 6; i++)
             {
                 Card myCard = MyDeck.GetTopCard();
-                myGUI.CurrentCard = myCard;
-                System.Diagnostics.Debug.WriteLine("New Card: " + myCard);
-                myGUI.MoveCardImage(myGUI.PlayerGrid, myCard.myImage, i, 0);
-                player.Cards.Add(myCard);
+                if(myCard != null)
+                {
+                    myGUI.CurrentCard = myCard;
+                    System.Diagnostics.Debug.WriteLine("New Card: " + myCard);
+                    myGUI.MoveCardImage(myGUI.PlayerGrid, myCard.myImage, i, 0);
+                    player.Cards.Add(myCard);
+                }
+                
             }
             myGUI.CurrentPlayer = player;
-            System.Diagnostics.Debug.WriteLine("Cards: " + player.Cards.Count());
+            //System.Diagnostics.Debug.WriteLine("Cards: " + player.Cards.Count());
         }
 
         public void Draw(ComputerPlayer player)
@@ -163,10 +216,13 @@ namespace Durak
             for (int i = player.Cards.Count(); i < 6; i++)
             {
                 Card myCard = MyDeck.GetTopCard();
-                myCard.SetFaceDown();
-                myGUI.CurrentCard = myCard;
-                myGUI.MoveCardImage(myGUI.OpponentGrid, myCard.myImage, i - 6, 0);
-                player.Cards.Add(myCard);
+                if (myCard != null)
+                {
+                    myCard.SetFaceDown();
+                    myGUI.CurrentCard = myCard;
+                    myGUI.MoveCardImage(myGUI.OpponentGrid, myCard.myImage, i - 6, 0);
+                    player.Cards.Add(myCard);
+                }
             }
         }
 
@@ -179,6 +235,7 @@ namespace Durak
             myGUI.OrderCards();
             Draw(HumanPlayer);
             System.Diagnostics.Debug.WriteLine("Clicked");
+            EndOfTurn = true;
         }
 
         /// <summary>

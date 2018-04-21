@@ -24,6 +24,8 @@ namespace Durak
         private Card currentCard;
         private Game myGame;
         private Label gameInfoLabel;
+        private bool cardPlayed;
+        private bool playGame;
 
         public Grid PlayerGrid
         {
@@ -72,6 +74,17 @@ namespace Durak
             get { return gameInfoLabel; }
             set { gameInfoLabel = value; }
         }
+
+        public bool CardPlayed
+        {
+            get { return cardPlayed; }
+            set { cardPlayed = value; }
+        }
+        public bool PlayGame
+        {
+            get { return playGame; }
+            set { playGame = value; }
+        }
         private int topMargin = -70;
 
         public void MoveCardImage(Grid toGrid, Image imageToMove, int gridColumn, int row)
@@ -79,6 +92,7 @@ namespace Durak
             // Check if the grid already contains the card
             if (!toGrid.Children.Contains(imageToMove))
             {
+                System.Diagnostics.Debug.WriteLine("IMAGE: " +imageToMove.Name);
                 toGrid.Children.Add(imageToMove);
                 imageToMove.SetValue(Grid.ColumnProperty, gridColumn);
 
@@ -107,6 +121,8 @@ namespace Durak
         public void RemoveCardImage(Grid removeFromGrid, Image imageToRemove)
         {
             bool remove = false;
+            if(currentPlayer is HumanPlayer)
+                System.Diagnostics.Debug.WriteLine("HUMAN PLAYER");
             foreach (Card card in currentPlayer.Cards)
             {
                 if (imageToRemove == card.myImage)
@@ -117,12 +133,19 @@ namespace Durak
             }
             if(remove)
             {
+                // If it is a computer player flip the card so you can get the image name to remove from the grid
+                if(currentPlayer is ComputerPlayer && !currentCard.faceUp)
+                {
+                    currentCard.SetFaceUp();
+                    imageToRemove = currentCard.myImage;
+                }
                 removeFromGrid.Children.Remove(imageToRemove);
                 currentPlayer.Cards.Remove(currentCard);
                 //System.Diagnostics.Debug.WriteLine("Removed Card: " + currentCard.rank + " " + currentCard.suit);
                 //System.Diagnostics.Debug.WriteLine("Total Cards in hand: " + currentPlayer.Cards.Count());
                 myGame.UpdatePlayers(currentPlayer);
             }
+            cardPlayed = remove;
             OrderCards();
         }
         /// <summary>
@@ -136,7 +159,10 @@ namespace Durak
                 if (currentPlayer is HumanPlayer)
                     playerGrid.Children.Remove(currentPlayer.Cards.ElementAt(i).myImage);
                 else
+                {
                     opponentGrid.Children.Remove(currentPlayer.Cards.ElementAt(i).myImage);
+                    currentPlayer.Cards.ElementAt(i).SetFaceDown();
+                }
                 MoveCardImage(currentPlayer is HumanPlayer ? playerGrid : opponentGrid, currentPlayer.Cards.ElementAt(i).myImage, i, 0);
             }
         }
