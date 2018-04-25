@@ -21,7 +21,7 @@ namespace Durak
         private Grid centerGrid;
         private Grid windowGrid;
         private Player currentPlayer;
-        private Card currentCard;
+        private Card currentCard = null;
         private Game myGame;
         private Label gameInfoLabel;
         private bool cardPlayed;
@@ -98,7 +98,7 @@ namespace Durak
             // Check if the grid already contains the card
             if (!toGrid.Children.Contains(imageToMove))
             {
-                System.Diagnostics.Debug.WriteLine("IMAGE: " +imageToMove.Name);
+                //System.Diagnostics.Debug.WriteLine("IMAGE: " +imageToMove.Name);
                 toGrid.Children.Add(imageToMove);
                 imageToMove.SetValue(Grid.ColumnProperty, gridColumn);
 
@@ -116,7 +116,7 @@ namespace Durak
                 {
                     imageToMove.MouseMove -= Card_MouseMove;
                 }
-                TurnPlayed = true;
+                CurrentCard = null;
             }
         }
 
@@ -135,20 +135,21 @@ namespace Durak
             {
                 if (imageToRemove == card.myImage)
                 {
-                    currentCard = card;
+                    CurrentCard = card;
+                    System.Diagnostics.Debug.WriteLine(CurrentCard.ToString());
                     remove = true;
                 }
             }
             if(remove)
             {
                 // If it is a computer player flip the card so you can get the image name to remove from the grid
-                if(currentPlayer is ComputerPlayer && !currentCard.faceUp)
+                if(currentPlayer is ComputerPlayer && !CurrentCard.faceUp)
                 {
-                    currentCard.SetFaceUp();
-                    imageToRemove = currentCard.myImage;
+                    CurrentCard.SetFaceUp();
+                    imageToRemove = CurrentCard.myImage;
                 }
                 removeFromGrid.Children.Remove(imageToRemove);
-                currentPlayer.Cards.Remove(currentCard);
+                currentPlayer.Cards.Remove(CurrentCard);
                 //System.Diagnostics.Debug.WriteLine("Removed Card: " + currentCard.rank + " " + currentCard.suit);
                 //System.Diagnostics.Debug.WriteLine("Total Cards in hand: " + currentPlayer.Cards.Count());
                 myGame.UpdatePlayers(currentPlayer);
@@ -173,6 +174,7 @@ namespace Durak
                 }
                 MoveCardImage(currentPlayer is HumanPlayer ? playerGrid : opponentGrid, currentPlayer.Cards.ElementAt(i).myImage, i, 0);
             }
+            TurnPlayed = true;
         }
 
         /// <summary>

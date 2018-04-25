@@ -418,5 +418,10 @@
   <ItemGroup>
     <Resource Include="Resources\russia.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\russia.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

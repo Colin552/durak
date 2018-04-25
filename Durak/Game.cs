@@ -49,6 +49,8 @@ namespace Durak
             MyDeck = newDeck;
         }
 
+        
+
 
         /// <summary>
         /// Play - The main game loop
@@ -99,12 +101,19 @@ namespace Durak
             myGUI.CurrentPlayer = humanPlayer;
         }
 
-        public void HumanPlayerTurn()
+        public async void HumanPlayerTurn()
         {
             myGUI.CurrentPlayer = humanPlayer;
-            System.Diagnostics.Debug.WriteLine("Human player made a move");
+            int i = 0;
+            while(MyGUI.TurnPlayed == false)
+            {
+                if(MyGUI.TurnPlayed == true)
+                    System.Diagnostics.Debug.WriteLine("TRUE");
+                i++;
+                System.Diagnostics.Debug.WriteLine("Attackerino: " + i);
+                await Task.Delay(1);
+            }
         }
-
         /// <summary>
         /// Calls from the GUI class so that the Player objects in the game get an updated hand
         /// When they play a card
@@ -141,7 +150,7 @@ namespace Durak
                 myCard.SetFaceDown();
                 myGUI.MoveCardImage(myGUI.OpponentGrid, myCard.myImage, i - 6, 0);
                 ComputerPlayer.Cards.Add(myCard);
-                System.Diagnostics.Debug.WriteLine("---------ADDED CARD: " + myCard.rank + " OF " + myCard.suit + "------------------");
+                //System.Diagnostics.Debug.WriteLine("---------ADDED CARD: " + myCard.rank + " OF " + myCard.suit + "------------------");
             }
             //MessageBox.Show("Wait");
          
@@ -218,8 +227,7 @@ namespace Durak
                 Card myCard = MyDeck.GetTopCard();
                 if(myCard != null)
                 {
-                    myGUI.CurrentCard = myCard;
-                    System.Diagnostics.Debug.WriteLine("New Card: " + myCard);
+                    //System.Diagnostics.Debug.WriteLine("New Card: " + myCard);
                     myGUI.MoveCardImage(myGUI.PlayerGrid, myCard.myImage, i, 0);
                     player.Cards.Add(myCard);
                 }
@@ -253,7 +261,7 @@ namespace Durak
             // Draw(computerPlayer);    Big boy issues
             myGUI.OrderCards();
             Draw(HumanPlayer);
-            System.Diagnostics.Debug.WriteLine("Clicked");
+            System.Diagnostics.Debug.WriteLine("Ended Turn Click");
             EndOfTurn = true;
         }
 

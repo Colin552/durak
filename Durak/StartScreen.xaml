@@ -23,7 +23,7 @@
         <Button Name="btnPlay" Grid.Column="1" Grid.Row="2" Width="200" Height="50" Content="Start Game" Click="btnPlay_Click" Background="#FFF3FF02" Foreground="Red" FontSize="24" FontFamily="Segoe UI Black"/>
         <Image HorizontalAlignment="Left" Height="100" Margin="0,1,0,0" VerticalAlignment="Top" Width="100" Source="Resources/russia.png"/>
         <Label Name="lblCardsQuestionMark" Content="How many cards do you wish to play with?" Grid.Column="1" HorizontalAlignment="Left" Margin="21,32,0,0" Grid.Row="1" VerticalAlignment="Top" Background="#00000000" Foreground="#FFF3FF02" FontSize="18"/>
-        <Label Content="DURAK" Grid.Column="1" HorizontalAlignment="Left" Margin="41,23,0,0" VerticalAlignment="Top" Foreground="#FFFFDC00" FontSize="72" Cursor="None" RenderTransformOrigin="0.5,0.5" FontFamily="Snap ITC"/>
+        <Label Content="DURAK" Grid.Column="1" HorizontalAlignment="Left" Margin="41,23,0,0" VerticalAlignment="Top" Foreground="#FFFFDC00" FontSize="72" Cursor="Arrow" RenderTransformOrigin="0.5,0.5" FontFamily="Snap ITC"/>
 
         <Image Grid.Column="2" HorizontalAlignment="Left" Height="128" Margin="17,105,0,0" Grid.Row="1" VerticalAlignment="Top" Width="128" Source="Resources/King_of_Heart.png" Grid.RowSpan="2" RenderTransformOrigin="0.5,0.5">
             <Image.RenderTransform>

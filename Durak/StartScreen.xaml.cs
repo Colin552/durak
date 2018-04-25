@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿/*
+ * Authors: Calvin Lapp, Colin Strong, Elizabeth Welch
+ * Date: 4/25/2018
+ * Description: This is the starting screen which allows
+ * a user to select how many cards they would like to 
+ * play with.
+ * 
+ */
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Durak
 {
@@ -23,7 +19,13 @@ namespace Durak
         {
             InitializeComponent();
         }
-
+        /// <summary>
+        /// Once clicked, opens a new window so the
+        /// user can play the game with the selected
+        /// number of cards
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnPlay_Click(object sender, RoutedEventArgs e)
         {
             int numOfCards = 0;
