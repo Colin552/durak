@@ -26,6 +26,7 @@ namespace Durak
         private Label gameInfoLabel;
         private bool cardPlayed;
         private bool playGame;
+        private bool turnPlayed = false;
 
         public Grid PlayerGrid
         {
@@ -85,6 +86,11 @@ namespace Durak
             get { return playGame; }
             set { playGame = value; }
         }
+        public bool TurnPlayed
+        {
+            get { return turnPlayed; }
+            set { turnPlayed = value; }
+        }
         private int topMargin = -70;
 
         public void MoveCardImage(Grid toGrid, Image imageToMove, int gridColumn, int row)
@@ -110,6 +116,7 @@ namespace Durak
                 {
                     imageToMove.MouseMove -= Card_MouseMove;
                 }
+                TurnPlayed = true;
             }
         }
 
@@ -120,6 +127,7 @@ namespace Durak
         /// <param name="imageToRemove"></param>
         public void RemoveCardImage(Grid removeFromGrid, Image imageToRemove)
         {
+            TurnPlayed = false;
             bool remove = false;
             if(currentPlayer is HumanPlayer)
                 System.Diagnostics.Debug.WriteLine("HUMAN PLAYER");

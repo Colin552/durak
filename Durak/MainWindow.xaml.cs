@@ -21,12 +21,13 @@ namespace Durak
     /// </summary>
     public partial class MainWindow : Window
     {
-        Game game = new Game();
+        Game game;
         GUI gui = new GUI();
-        public MainWindow()
+        public MainWindow(int numOfCards)
         {
             InitializeComponent();
-
+            Game newGame = new Game(numOfCards);
+            game = newGame;
             
             //Set the GUI class's variables
             gui.PlayerGrid = playerHandGrid;
@@ -47,7 +48,7 @@ namespace Durak
         {
             Image card = (Image)e.Data.GetData(typeof(Image));
             gui.RemoveCardImage(playerHandGrid, card);
-            gui.MoveCardImage(centerGrid, card, 0, 0);     
+            gui.MoveCardImage(centerGrid, card, 0, 0);    
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

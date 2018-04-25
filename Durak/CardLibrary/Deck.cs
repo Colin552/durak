@@ -11,35 +11,52 @@ namespace Durak
         public event EventHandler LastCardDrawn;
         private Cards cards = new Cards();
         private int numOfCards;
-        public int NumberOfCards
-        {
-            get { return numOfCards; }
-            set { numOfCards = value; }
-        }
-        /// <summary>
-        /// Default constructor
-        /// Set default cards to 36 ---  ADD FUNCTIONALITY FOR MORE CARDS LATER
-        /// </summary>
-        public Deck(int numCards = 36)
-        {
-            NumberOfCards = numCards;
-            for (int suitVal = 0; suitVal < 4; suitVal++)
-            {
-                for (int rankVal = 6; rankVal < 14; rankVal++)
-                {
-                    cards.Add(new Card((Suit)suitVal, (Rank)rankVal));
-                }
-                cards.Add(new Card((Suit)suitVal, Rank.Ace));
-            }
-            this.Shuffle();
-        }
+        public int NumOfCards { get => numOfCards; set => numOfCards = value; }
 
         /// <summary>
-        /// Nondefault constructor. Allows aces to be set high.
+        /// Default and parameterized constructor which takes the number of cards
+        /// the deck is to be played with
         /// </summary>
-        public Deck(bool isAceHigh) : this()
+        /// <param name="numCards">The number of cards to be in the deck</param>
+        public Deck(int numCards = 36)
         {
-            Card.isAceHigh = isAceHigh;
+            NumOfCards = numCards;
+            if (numCards == 36)
+            {
+                for (int suitVal = 0; suitVal < 4; suitVal++)
+                {
+                    for (int rankVal = 6; rankVal < 14; rankVal++)
+                    {
+                        cards.Add(new Card((Suit)suitVal, (Rank)rankVal));
+                    }
+                    // Adding an ace manually because it does not reach in the loop
+                    cards.Add(new Card((Suit)suitVal, Rank.Ace));
+                }
+            }
+            else if(numCards == 20)
+            {
+                for (int suitVal = 0; suitVal < 4; suitVal++)
+                {
+                    for (int rankVal = 10; rankVal < 14; rankVal++)
+                    {
+                        cards.Add(new Card((Suit)suitVal, (Rank)rankVal));
+                    }
+                    // Adding an ace manually because it does not reach in the loop
+                    cards.Add(new Card((Suit)suitVal, Rank.Ace));
+                }
+            }
+            else if(numCards == 52)
+            {
+                for (int suitVal = 0; suitVal < 4; suitVal++)
+                {
+                    for (int rankVal = 1; rankVal < 14; rankVal++)
+                    {
+                        cards.Add(new Card((Suit)suitVal, (Rank)rankVal));
+                    }
+                    // No need for manual adding of an ace because it is reached in the loop
+                }
+            }
+            this.Shuffle();
         }
 
         /// <summary>
@@ -68,9 +85,9 @@ namespace Durak
         /// <returns></returns>
         public Card GetCard(int cardNum)
         {
-            if (cardNum >= 0 && cardNum <= 35)
+            if (cardNum >= 0 && cardNum <= NumOfCards -1)
             {
-                if ((cardNum == 35) && (LastCardDrawn != null))
+                if ((cardNum == NumOfCards - 1) && (LastCardDrawn != null))
                     LastCardDrawn(this, EventArgs.Empty);
                 return cards[cardNum];
             }
@@ -80,6 +97,10 @@ namespace Durak
             } 
         }
 
+        /// <summary>
+        /// Gets the next card in the deck
+        /// </summary>
+        /// <returns>Null card object if no cards left, a card object if there are cards</returns>
         public Card GetTopCard()
         {
             Card returnedCard = null;
@@ -94,21 +115,23 @@ namespace Durak
             return returnedCard;
         }
         /// <summary>
-        /// MADE STATIC 36 NUMBER FOR CARDS SO NO EXCEPTIOSN FAM 100
+        /// Shuffles the cards in the deck
         /// </summary>
         public void Shuffle()
         {
             Cards newDeck = new Cards();
-            bool[] assigned = new bool[36];
+            bool[] assigned = new bool[NumOfCards];
             Random sourceGen = new Random();
 
-            for (int i = 0; i < 36; i++)
+            // Loop through the number of cards in the deck
+            // and shuffle the cards
+            for (int i = 0; i < NumOfCards; i++)
             {
                 int sourceCard = 0;
                 bool foundCard = false;
                 while (foundCard == false)
                 {
-                    sourceCard = sourceGen.Next(36);
+                    sourceCard = sourceGen.Next(NumOfCards);
                     if (assigned[sourceCard] == false)
                     {
                         foundCard = true;

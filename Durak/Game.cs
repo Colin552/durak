@@ -33,12 +33,22 @@ namespace Durak
         public GUI MyGUI { get => myGUI; set => myGUI = value; }
         public bool EndOfTurn { get => endTurn; set => endTurn = value; }
         public Card ComputerDecidedCard { get => computerDecidedCard; set => computerDecidedCard = value; }
-
+        public Card CurrentCardInPlay { get => currentCardInPlay; set => currentCardInPlay = value; }
+        
         public Suit trumpSuit;
         private bool endTurn = true;
         private Card computerDecidedCard;
+        private Card currentCardInPlay;
 
         public static Player attackingPlayer;
+
+
+        public Game(int numOfCards)
+        {
+            Deck newDeck = new Deck(numOfCards);
+            MyDeck = newDeck;
+        }
+
 
         /// <summary>
         /// Play - The main game loop
@@ -56,34 +66,43 @@ namespace Durak
                 EndOfTurn = false;
                 if (attackingPlayer is ComputerPlayer)
                 {
-                    int cardIndex = 0;
-                    // Allow the computer to make a decision
-                    ComputerDecidedCard = computerPlayer.MakeMove(trumpSuit);
-                    // For each of the computers cards in hand, find which one matches the returned\
-                    // Choice for card to play and get its index
-                    for (int i = 6; i < computerPlayer.Cards.Count() + 6; i++)
-                    {
-                        if (computerPlayer.Cards[i - 6] == ComputerDecidedCard)
-                            cardIndex = i;
-                    }
-                    // Set the current player to the computer 
-                    myGUI.CurrentPlayer = computerPlayer;
-                    // Remove the card from the grid
-                    myGUI.RemoveCardImage(myGUI.OpponentGrid, ComputerDecidedCard.myImage);
-                    // Move the card to the middle
-                    myGUI.MoveCardImage(myGUI.CenterGrid, ComputerDecidedCard.myImage, 0, 0);
-                    // Set the current player to the human Player since the computers turn is done
-                    myGUI.CurrentPlayer = humanPlayer;
+                    ComputerPlayerTurn();
                 }
                 else
                 {
-                    myGUI.CurrentPlayer = humanPlayer;
-                    System.Diagnostics.Debug.WriteLine("Human player made a move");
+                    HumanPlayerTurn();
                 }
             }
-
-
             //do { } while (!CheckForWinner());
+        }
+
+        public void ComputerPlayerTurn()
+        {
+            // Set the current player to the computer 
+            myGUI.CurrentPlayer = computerPlayer;
+
+            int cardIndex = 0;
+            // Allow the computer to make a decision
+            ComputerDecidedCard = computerPlayer.MakeMove(trumpSuit);
+            // For each of the computers cards in hand, find which one matches the returned\
+            // Choice for card to play and get its index
+            for (int i = 6; i < computerPlayer.Cards.Count() + 6; i++)
+            {
+                if (computerPlayer.Cards[i - 6] == ComputerDecidedCard)
+                    cardIndex = i;
+            }
+            // Remove the card from the grid
+            myGUI.RemoveCardImage(myGUI.OpponentGrid, ComputerDecidedCard.myImage);
+            // Move the card to the middle
+            myGUI.MoveCardImage(myGUI.CenterGrid, ComputerDecidedCard.myImage, 0, 0);
+            CurrentCardInPlay = ComputerDecidedCard;
+            myGUI.CurrentPlayer = humanPlayer;
+        }
+
+        public void HumanPlayerTurn()
+        {
+            myGUI.CurrentPlayer = humanPlayer;
+            System.Diagnostics.Debug.WriteLine("Human player made a move");
         }
 
         /// <summary>

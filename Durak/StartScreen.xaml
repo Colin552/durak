@@ -1,0 +1,49 @@
+﻿<Window x:Class="Durak.StartScreen"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Durak"
+        mc:Ignorable="d"
+        Title="StartScreen" Height="450" Width="800" Background="Red">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition AllowDrop="true"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="200"/>
+        </Grid.ColumnDefinitions>
+        <RadioButton GroupName="cards" Content="20" Name="opt20" Grid.Column="1" Grid.Row="1" Margin="86,82,264,41" Foreground="#FFF3FF02" />
+        <RadioButton GroupName="cards" Content="36" Name="opt36" Grid.Column="1" Grid.Row="1" Margin="164,82,186,39" IsChecked="true" Foreground="#FFF3FF02"/>
+        <RadioButton GroupName="cards" Content="52" Name="opt52" Grid.Column="1" Grid.Row="1" Margin="234,82,78,41" Foreground="#FFF3FF02"/>
+        <Button Name="btnPlay" Grid.Column="1" Grid.Row="2" Width="200" Height="50" Content="Start Game" Click="btnPlay_Click" Background="#FFF3FF02" Foreground="Red" FontSize="24" FontFamily="Segoe UI Black"/>
+        <Image HorizontalAlignment="Left" Height="100" Margin="0,1,0,0" VerticalAlignment="Top" Width="100" Source="Resources/russia.png"/>
+        <Label Name="lblCardsQuestionMark" Content="How many cards do you wish to play with?" Grid.Column="1" HorizontalAlignment="Left" Margin="21,32,0,0" Grid.Row="1" VerticalAlignment="Top" Background="#00000000" Foreground="#FFF3FF02" FontSize="18"/>
+        <Label Content="DURAK" Grid.Column="1" HorizontalAlignment="Left" Margin="41,23,0,0" VerticalAlignment="Top" Foreground="#FFFFDC00" FontSize="72" Cursor="None" RenderTransformOrigin="0.5,0.5" FontFamily="Snap ITC"/>
+
+        <Image Grid.Column="2" HorizontalAlignment="Left" Height="128" Margin="17,105,0,0" Grid.Row="1" VerticalAlignment="Top" Width="128" Source="Resources/King_of_Heart.png" Grid.RowSpan="2" RenderTransformOrigin="0.5,0.5">
+            <Image.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="-7.939"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Image.RenderTransform>
+        </Image>
+        <Image Grid.Column="2" HorizontalAlignment="Left" Height="129" Margin="89,109,0,0" Grid.Row="1" Grid.RowSpan="2" VerticalAlignment="Top" Width="93" Source="Resources/Eight_of_Spade.png" RenderTransformOrigin="0.5,0.5">
+            <Image.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="11.603"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Image.RenderTransform>
+        </Image>
+    </Grid>
+</Window>
