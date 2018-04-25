@@ -7,7 +7,8 @@
  * 
  */
 using System.Windows;
-
+using System.Windows.Media;
+using System;
 namespace Durak
 {
     /// <summary>
@@ -15,9 +16,13 @@ namespace Durak
     /// </summary>
     public partial class StartScreen : Window
     {
+        MediaPlayer mediaPlayer = new MediaPlayer();
         public StartScreen()
         {
             InitializeComponent();
+
+            mediaPlayer.Open(new Uri("../../Resources/russia.mp3", UriKind.Relative));
+            mediaPlayer.Play();
         }
         /// <summary>
         /// Once clicked, opens a new window so the
