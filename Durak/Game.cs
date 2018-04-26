@@ -96,7 +96,7 @@ namespace Durak
             // Remove the card from the grid
             myGUI.RemoveCardImage(myGUI.OpponentGrid, ComputerDecidedCard.myImage);
             // Move the card to the middle
-            myGUI.MoveCardImage(myGUI.CenterGrid, ComputerDecidedCard.myImage, 0, 0);
+            myGUI.MoveCardImage(myGUI.CenterGrid, ComputerDecidedCard.myImage, 0);
             CurrentCardInPlay = ComputerDecidedCard;
             myGUI.CurrentPlayer = humanPlayer;
         }

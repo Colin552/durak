@@ -113,7 +113,11 @@ namespace Durak
                     }
                 }
             }
-            
+
+            if (lowestPlayableCard == null)
+            {
+                Console.WriteLine("Computer can not defend");
+            }
 
             return lowestPlayableCard;
         }
