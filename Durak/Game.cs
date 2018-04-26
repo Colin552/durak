@@ -105,6 +105,8 @@ namespace Durak
         {
             myGUI.CurrentPlayer = humanPlayer;
             int i = 0;
+            // Setting this true in the OrderCards()
+            // Loops while it is false, once a human puts a card down it gets set to true
             while(MyGUI.TurnPlayed == false)
             {
                 if(MyGUI.TurnPlayed == true)
