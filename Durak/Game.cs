@@ -39,7 +39,6 @@ namespace Durak
 
         private Card computerDecidedCard;
         private Card currentCardInPlay;
-
         public static Player attackingPlayer;
         private Player playersTurn;
 
@@ -58,11 +57,11 @@ namespace Durak
             InitialDraw();
             SetTrump();
             attackingPlayer = DetermineAttacker();
-            playersTurn = DetermineAttacker();
+            playersTurn = attackingPlayer;
             humanPlayer.CanPlayCard = true;
             if (playersTurn == ComputerPlayer)
             {
-                ComputerPlayerTurn();
+                EndMove();
             }
             
                  
@@ -89,15 +88,16 @@ namespace Durak
             }
 
             myGUI.CurrentPlayer = humanPlayer;
-            EndTurn();
+            EndMove();
             
         }
 
         /// <summary>
-        /// EndTurn - Called when the player ends his turn
+        /// EndMove - Called when the player ends his turn
         /// </summary>
-        public void EndTurn()
+        public void EndMove()
         {
+            //Console.WriteLine(CurrentCardInPlay.ToString());
             if (playersTurn == HumanPlayer)
             {
                 humanPlayer.CanPlayCard = true;
@@ -108,9 +108,12 @@ namespace Durak
             {
                 playersTurn = HumanPlayer;
                 ComputerPlayerTurn();
-                
-                
             }
+        }
+
+        public void EndTurn()
+        {
+
         }
 
         /// <summary>
@@ -149,10 +152,7 @@ namespace Durak
                 myCard.SetFaceDown();
                 myGUI.MoveCardImage(myGUI.OpponentGrid, myCard.myImage, i - 6, 0);
                 ComputerPlayer.Cards.Add(myCard);
-                //System.Diagnostics.Debug.WriteLine("---------ADDED CARD: " + myCard.rank + " OF " + myCard.suit + "------------------");
             }
-            //MessageBox.Show("Wait");
-         
         }
 
         /// <summary>
@@ -193,8 +193,6 @@ namespace Durak
                 }
             }
 
-            //Console.WriteLine("Human Lowest Rank: " + humanLowestRank);
-            //Console.WriteLine("Computer Lowest Rank: " + computerLowestRank);
             // Returns the player with the lowest rank of the trump suit
             if (computerLowestRank > humanLowestRank)
             {
@@ -313,7 +311,7 @@ namespace Durak
 
             if (attackingPlayer == computerPlayer)
             {
-                Console.WriteLine(CurrentCardInPlay.ToString());
+                //Console.WriteLine(CurrentCardInPlay.ToString());
                 if (cardToPlay.suit == CurrentCardInPlay.suit || cardToPlay.suit == trumpSuit)
                 {
                     Console.WriteLine("Valid suit");
