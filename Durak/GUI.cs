@@ -93,7 +93,7 @@ namespace Durak
         }
         private int topMargin = -70;
 
-        public void MoveCardImage(Grid toGrid, Image imageToMove, int gridColumn, int row)
+        public void MoveCardImage(Grid toGrid, Image imageToMove, int gridColumn, int row = 0)
         {
             // Check if the grid already contains the card
             if (!toGrid.Children.Contains(imageToMove))
@@ -103,9 +103,18 @@ namespace Durak
                 imageToMove.SetValue(Grid.ColumnProperty, gridColumn);
 
                 // Put it on the top or bottow "row" 
+                if (toGrid == CenterGrid)
+                {
+                    Thickness centerMargin = new Thickness(0, topMargin + (CenterGrid.Children.Count), 0, 0);
+                    imageToMove.SetValue(Grid.MarginProperty, centerMargin);
+                }
+                else
+                {
+                    Thickness cardMargin = new Thickness(0, topMargin + (row * -topMargin), 0, 0);
+                    imageToMove.SetValue(Grid.MarginProperty, cardMargin);
+                }
 
-                Thickness cardMargin = new Thickness(0, topMargin + (row * -topMargin), 0, 0);
-                imageToMove.SetValue(Grid.MarginProperty, cardMargin);
+                
 
                 // Add or remove the event handler from the card's image depending on whether it is going to the Player's hand or not
                 if (toGrid == playerGrid)
@@ -150,6 +159,7 @@ namespace Durak
                 }
                 removeFromGrid.Children.Remove(imageToRemove);
                 currentPlayer.Cards.Remove(CurrentCard);
+
                 myGame.UpdatePlayers(currentPlayer);
             }
             cardPlayed = remove;

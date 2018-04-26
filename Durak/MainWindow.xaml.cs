@@ -48,7 +48,7 @@ namespace Durak
         {
             Image card = (Image)e.Data.GetData(typeof(Image));
             gui.RemoveCardImage(playerHandGrid, card);
-            gui.MoveCardImage(centerGrid, card, 0, 0);    
+            gui.MoveCardImage(centerGrid, card, 0, gui.CenterGrid.Children.Count);    
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
