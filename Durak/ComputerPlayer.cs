@@ -63,12 +63,13 @@ namespace Durak
             if (cardInPlay != null)
             {
                 foreach (Card card in Cards)
-                {
+                {                  
                     if (card.suit == cardInPlay.suit)
                     {
                         if (card.rank > cardInPlay.rank)
                         {
                             playableCards.Add(card);
+
                             if (lowestPlayableCard == null)
                             {
                                 lowestPlayableCard = card;
@@ -85,6 +86,11 @@ namespace Durak
                             if (card.rank > cardInPlay.rank)
                             {
                                 playableCards.Add(card);
+
+                                if (lowestPlayableCard == null)
+                                {
+                                    lowestPlayableCard = card;
+                                }
                             }
                         }
                     }
@@ -93,10 +99,13 @@ namespace Durak
                 {
                     foreach (Card card in playableCards)
                     {
-                        if (card.rank < lowestPlayableCard.rank)
+                        if (lowestPlayableCard != null)
                         {
-                            lowestPlayableCard = card;
-                        }
+                            if (card.rank < lowestPlayableCard.rank)
+                            {
+                                lowestPlayableCard = card;
+                            }
+                        }                    
                     }
                 }
                 
