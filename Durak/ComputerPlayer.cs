@@ -21,6 +21,7 @@ namespace Durak
         {
 
         }
+        /*
         /// <summary>
         /// 
         /// </summary>
@@ -42,15 +43,79 @@ namespace Durak
             }
             foreach(Card card in cardsToPlay)
             {
-                System.Diagnostics.Debug.WriteLine("Cards of suit: " + highestCard.rank + " of " + highestCard.suit);
-                if (highestCard.rank < card.rank && highestCard.suit == card.suit)
+                //System.Diagnostics.Debug.WriteLine("Cards of suit: " + highestCard.rank + " of " + highestCard.suit);
+                if (highestCard.rank > card.rank && highestCard.suit == card.suit)
                     highestCard = card;
-                else if(highestCard.rank < card.rank)
+                else if(highestCard.rank > card.rank)
                     highestCard = card;
             }
-            System.Diagnostics.Debug.WriteLine("Computer player made a move");
-            System.Diagnostics.Debug.WriteLine("Highest card: " + highestCard.rank + " of " + highestCard.suit);
+            //System.Diagnostics.Debug.WriteLine("Computer player made a move");
+            //System.Diagnostics.Debug.WriteLine("Highest card: " + highestCard.rank + " of " + highestCard.suit);
             return highestCard;
+        }*/
+
+        public Card MakeMove(Suit trump, Card cardInPlay = null)
+        {
+            Cards playableCards = new Cards();
+            Card lowestPlayableCard = null;
+
+            //If there is a card in play
+            if (cardInPlay != null)
+            {
+                foreach (Card card in Cards)
+                {
+                    if (card.suit == cardInPlay.suit)
+                    {
+                        if (card.rank > cardInPlay.rank)
+                        {
+                            playableCards.Add(card);
+                            lowestPlayableCard = card; // just so its not null and can be checked later
+                        }
+                    }
+                }
+                if (playableCards.Count == 0)
+                {
+                    foreach (Card card in Cards)
+                    {
+                        if (card.suit == trump)
+                        {
+                            if (card.rank > cardInPlay.rank)
+                            {
+                                playableCards.Add(card);
+                            }
+                        }
+                    }
+                }
+                foreach (Card card in playableCards)
+                {
+                    if (card.rank < lowestPlayableCard.rank)
+                    {
+                        lowestPlayableCard = card;
+                    }
+                }
+            }
+            else
+            {
+                //If the computer is attacking
+                foreach (Card card in Cards)
+                {
+                    if (card.suit != trump)
+                    {
+                        playableCards.Add(card);
+                        lowestPlayableCard = card;
+                    }
+                }
+                foreach (Card card in playableCards)
+                {
+                    if (card.rank < lowestPlayableCard.rank)
+                    {
+                        lowestPlayableCard = card;
+                    }
+                }
+            }
+            
+
+            return lowestPlayableCard;
         }
     }
 }

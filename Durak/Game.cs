@@ -14,6 +14,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace Durak
 {
@@ -49,9 +50,6 @@ namespace Durak
             MyDeck = newDeck;
         }
 
-        
-
-
         /// <summary>
         /// Play - The main game loop
         /// </summary>
@@ -61,21 +59,23 @@ namespace Durak
             InitialDraw();
             SetTrump();
             attackingPlayer = DetermineAttacker();
+            humanPlayer.CanPlayCard = true;
             //myGUI.PlayGame is true once the 'Play' button is clicked
             while (myGUI.PlayGame && EndOfTurn)
             {
                 myGUI.CurrentPlayer = humanPlayer;
                 EndOfTurn = false;
+                
                 if (attackingPlayer is ComputerPlayer)
                 {
                     ComputerPlayerTurn();
                 }
                 else
                 {
-                    HumanPlayerTurn();
+                    //HumanPlayerTurn();
                 }
             }
-            //do { } while (!CheckForWinner());
+            
         }
 
         public void ComputerPlayerTurn()
@@ -101,19 +101,7 @@ namespace Durak
             myGUI.CurrentPlayer = humanPlayer;
         }
 
-        public async void HumanPlayerTurn()
-        {
-            myGUI.CurrentPlayer = humanPlayer;
-            int i = 0;
-            while(MyGUI.TurnPlayed == false)
-            {
-                if(MyGUI.TurnPlayed == true)
-                    System.Diagnostics.Debug.WriteLine("TRUE");
-                i++;
-                System.Diagnostics.Debug.WriteLine("Attackerino: " + i);
-                await Task.Delay(1);
-            }
-        }
+
         /// <summary>
         /// Calls from the GUI class so that the Player objects in the game get an updated hand
         /// When they play a card
@@ -164,7 +152,7 @@ namespace Durak
             Card trumpCard = MyDeck.GetTopCard();
             trumpSuit = trumpCard.suit;
             myGUI.PlaceTrumpCard(trumpCard);
-            Console.WriteLine("Trump Suit: " + trumpSuit);
+            //Console.WriteLine("Trump Suit: " + trumpSuit);
         }
 
         /// <summary>
@@ -194,8 +182,8 @@ namespace Durak
                 }
             }
 
-            Console.WriteLine("Human Lowest Rank: " + humanLowestRank);
-            Console.WriteLine("Computer Lowest Rank: " + computerLowestRank);
+            //Console.WriteLine("Human Lowest Rank: " + humanLowestRank);
+            //Console.WriteLine("Computer Lowest Rank: " + computerLowestRank);
             // Returns the player with the lowest rank of the trump suit
             if (computerLowestRank > humanLowestRank)
             {
@@ -261,8 +249,9 @@ namespace Durak
             // Draw(computerPlayer);    Big boy issues
             myGUI.OrderCards();
             Draw(HumanPlayer);
-            System.Diagnostics.Debug.WriteLine("Ended Turn Click");
+            //System.Diagnostics.Debug.WriteLine("Ended Turn Click");
             EndOfTurn = true;
+            humanPlayer.CanPlayCard = true;
         }
 
         /// <summary>
@@ -283,6 +272,62 @@ namespace Durak
             {
                 return false;
             }
+        }
+
+        /// <summary>
+        /// Card_MouseMove - Event handler for the Card's drag and drop functionality
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public void Card_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (humanPlayer.CanPlayCard)
+            {
+                Image cardImage = sender as Image;
+                if (cardImage != null && e.LeftButton == MouseButtonState.Pressed)
+                {
+                    string stringRank = cardImage.Name.Split('_')[0];
+                    string stringSuit = cardImage.Name.Split('_')[2];
+                    Rank cardRank = (Rank)Enum.Parse(typeof(Rank), stringRank);
+                    Suit cardSuit = (Suit)Enum.Parse(typeof(Suit), stringSuit);
+                    Card selectedCard = new Card(cardSuit, cardRank);
+
+                    
+                    if (ValidMove(selectedCard))
+                    {
+                        DragDrop.DoDragDrop(cardImage, cardImage, DragDropEffects.Move);
+                        humanPlayer.CanPlayCard = false;
+                    }               
+                }
+
+            }
+        }
+
+        public bool ValidMove(Card cardToPlay)
+        {
+            bool isValid = true;
+
+            if (attackingPlayer == computerPlayer)
+            {
+                Console.WriteLine(CurrentCardInPlay.ToString());
+                if (cardToPlay.suit == CurrentCardInPlay.suit || cardToPlay.suit == trumpSuit)
+                {
+                    Console.WriteLine("Valid suit");
+                    if (!(cardToPlay.rank > CurrentCardInPlay.rank))
+                    {
+                        isValid = false;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Valid rank");
+                    }
+                }
+                else
+                {
+                    isValid = false;
+                }
+            }
+            return isValid;
         }
     }
 }

@@ -14,6 +14,7 @@ namespace Durak
 {
     public abstract class Player
     {
+        private bool canPlayCard;
         private Cards myCards = new Cards();
         private bool isAttacking;
         private string myName;
@@ -33,6 +34,11 @@ namespace Durak
             set { isAttacking = value; }
         }
 
+        public bool CanPlayCard
+        {
+            get { return canPlayCard; }
+            set { canPlayCard = value; }
+        }
         public abstract void Attack();
         public abstract void Defend();
 
