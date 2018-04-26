@@ -39,7 +39,7 @@ namespace Durak
 
         private Card computerDecidedCard;
         private Card currentCardInPlay;
-        public static Player attackingPlayer;
+        //public static Player attackingPlayer;
         private Player playersTurn;
 
         public Game(int numOfCards)
@@ -56,8 +56,8 @@ namespace Durak
             myGUI.CurrentPlayer = humanPlayer;
             InitialDraw();
             SetTrump();
-            attackingPlayer = DetermineAttacker();
-            playersTurn = attackingPlayer;
+            //attackingPlayer = DetermineAttacker();
+            playersTurn = DetermineAttacker();
             humanPlayer.CanPlayCard = true;
             if (playersTurn == ComputerPlayer)
             {
@@ -97,7 +97,11 @@ namespace Durak
         /// </summary>
         public void EndMove()
         {
-            //Console.WriteLine(CurrentCardInPlay.ToString());
+            if (CurrentCardInPlay != null)
+            {
+                Console.WriteLine("Card in play: " +CurrentCardInPlay.ToString());
+            }
+            
             if (playersTurn == HumanPlayer)
             {
                 humanPlayer.CanPlayCard = true;
@@ -309,7 +313,7 @@ namespace Durak
         {
             bool isValid = true;
 
-            if (attackingPlayer == computerPlayer)
+            if (playersTurn == computerPlayer)
             {
                 //Console.WriteLine(CurrentCardInPlay.ToString());
                 if (cardToPlay.suit == CurrentCardInPlay.suit || cardToPlay.suit == trumpSuit)

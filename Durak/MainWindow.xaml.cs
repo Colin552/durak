@@ -53,7 +53,8 @@ namespace Durak
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            game.EndTurn();
+            //game.EndTurn();
+            game.EndMove();
         }
         /// <summary>
         /// Once clicked, starts the game
