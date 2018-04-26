@@ -45,5 +45,6 @@
                 </TransformGroup>
             </Image.RenderTransform>
         </Image>
+        <Image HorizontalAlignment="Left" MouseLeftButtonDown="MuteHandler"  Height="63" Margin="10,66,0,0" VerticalAlignment="Top" Width="57" Source="Resources/play.png" Grid.Row="2"/>
     </Grid>
 </Window>

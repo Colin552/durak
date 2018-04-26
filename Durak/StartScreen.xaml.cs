@@ -9,6 +9,9 @@
 using System.Windows;
 using System.Windows.Media;
 using System;
+using System.Windows.Controls;
+using System.Windows.Media.Imaging;
+
 namespace Durak
 {
     /// <summary>
@@ -16,7 +19,10 @@ namespace Durak
     /// </summary>
     public partial class StartScreen : Window
     {
-        MediaPlayer mediaPlayer = new MediaPlayer();
+        private bool isPlaying = true;
+        private MediaPlayer mediaPlayer = new MediaPlayer();
+        private Uri muteURI = new Uri("pack://application:,,,/Durak;component/Resources/mute.png");
+        private Uri playURI = new Uri("pack://application:,,,/Durak;component/Resources/play.png");
         public StartScreen()
         {
             InitializeComponent();
@@ -44,9 +50,42 @@ namespace Durak
             else
                 numOfCards = 36;
 
+            mediaPlayer.Stop();
+
             MainWindow mainWindow = new MainWindow(numOfCards);
             mainWindow.Show();
             this.Close();
+        }
+
+        /// <summary>
+        /// Mutes or plays the glorious Russian anthem
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void MuteHandler(object sender, EventArgs e)
+        {
+
+            Console.WriteLine("Click");
+            Image audioImage = sender as Image;
+
+            BitmapImage newAudioImage = new BitmapImage();
+            newAudioImage.BeginInit();
+           
+            if (isPlaying)
+            {
+                isPlaying = false;
+                mediaPlayer.Pause();
+                newAudioImage.UriSource = muteURI;
+            }
+            else
+            {
+                mediaPlayer.Play();
+                isPlaying = true;
+                newAudioImage.UriSource = playURI;
+            }
+
+            newAudioImage.EndInit();
+            audioImage.Source = newAudioImage;
         }
     }
 }
