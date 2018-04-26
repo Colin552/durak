@@ -42,7 +42,7 @@ namespace Durak
         private Card currentCardInPlay;
 
         public static Player attackingPlayer;
-
+        private Player playersTurn;
 
         public Game(int numOfCards)
         {
@@ -61,7 +61,7 @@ namespace Durak
             attackingPlayer = DetermineAttacker();
             humanPlayer.CanPlayCard = true;
             //myGUI.PlayGame is true once the 'Play' button is clicked
-            while (myGUI.PlayGame && EndOfTurn)
+            /*while (myGUI.PlayGame && EndOfTurn)
             {
                 myGUI.CurrentPlayer = humanPlayer;
                 EndOfTurn = false;
@@ -74,6 +74,17 @@ namespace Durak
                 {
                     //HumanPlayerTurn();
                 }
+            }*/
+            
+            while (MyGUI.PlayGame && playersTurn != humanPlayer)
+            {
+                Console.WriteLine("My Turn");
+                if (playersTurn == ComputerPlayer)
+                {
+                    ComputerPlayerTurn();
+                    ComputerPlayer.MakeMove(trumpSuit, CurrentCardInPlay);
+                    playersTurn = HumanPlayer;
+                }
             }
             
         }
@@ -83,21 +94,21 @@ namespace Durak
             // Set the current player to the computer 
             myGUI.CurrentPlayer = computerPlayer;
 
-            int cardIndex = 0;
+            
+
             // Allow the computer to make a decision
-            ComputerDecidedCard = computerPlayer.MakeMove(trumpSuit);
+            ComputerDecidedCard = computerPlayer.MakeMove(trumpSuit,CurrentCardInPlay);
             // For each of the computers cards in hand, find which one matches the returned\
             // Choice for card to play and get its index
-            for (int i = 6; i < computerPlayer.Cards.Count() + 6; i++)
-            {
-                if (computerPlayer.Cards[i - 6] == ComputerDecidedCard)
-                    cardIndex = i;
+            if (ComputerDecidedCard != null)
+            {               
+                // Remove the card from the grid
+                myGUI.RemoveCardImage(myGUI.OpponentGrid, ComputerDecidedCard.myImage);
+                // Move the card to the middle
+                myGUI.MoveCardImage(myGUI.CenterGrid, ComputerDecidedCard.myImage, 0);
+                CurrentCardInPlay = ComputerDecidedCard;
             }
-            // Remove the card from the grid
-            myGUI.RemoveCardImage(myGUI.OpponentGrid, ComputerDecidedCard.myImage);
-            // Move the card to the middle
-            myGUI.MoveCardImage(myGUI.CenterGrid, ComputerDecidedCard.myImage, 0);
-            CurrentCardInPlay = ComputerDecidedCard;
+            
             myGUI.CurrentPlayer = humanPlayer;
         }
 
@@ -188,16 +199,19 @@ namespace Durak
             if (computerLowestRank > humanLowestRank)
             {
                 MyGUI.SetLabelText("You are attacking");
-                return humanPlayer;
+                playersTurn = HumanPlayer;
+                return HumanPlayer;
             }
             else if (computerLowestRank < humanLowestRank)
             {
                 MyGUI.SetLabelText("Computer is attacking");
-                return computerPlayer;
+                playersTurn = ComputerPlayer;
+                return ComputerPlayer;
             }
             else
             {
                 MyGUI.SetLabelText("Tie, you are attacking");
+                playersTurn = HumanPlayer;
                 return humanPlayer;
             }
         }
@@ -252,6 +266,7 @@ namespace Durak
             //System.Diagnostics.Debug.WriteLine("Ended Turn Click");
             EndOfTurn = true;
             humanPlayer.CanPlayCard = true;
+            playersTurn = ComputerPlayer;
         }
 
         /// <summary>
