@@ -32,12 +32,11 @@ namespace Durak
         public ComputerPlayer ComputerPlayer { get => computerPlayer; set => computerPlayer = value; }
         public Deck MyDeck { get => myDeck; set => myDeck = value; }
         public GUI MyGUI { get => myGUI; set => myGUI = value; }
-        public bool EndOfTurn { get => endTurn; set => endTurn = value; }
         public Card ComputerDecidedCard { get => computerDecidedCard; set => computerDecidedCard = value; }
         public Card CurrentCardInPlay { get => currentCardInPlay; set => currentCardInPlay = value; }
         
         public Suit trumpSuit;
-        private bool endTurn = true;
+
         private Card computerDecidedCard;
         private Card currentCardInPlay;
 
@@ -59,34 +58,14 @@ namespace Durak
             InitialDraw();
             SetTrump();
             attackingPlayer = DetermineAttacker();
+            playersTurn = DetermineAttacker();
             humanPlayer.CanPlayCard = true;
-            //myGUI.PlayGame is true once the 'Play' button is clicked
-            /*while (myGUI.PlayGame && EndOfTurn)
+            if (playersTurn == ComputerPlayer)
             {
-                myGUI.CurrentPlayer = humanPlayer;
-                EndOfTurn = false;
-                
-                if (attackingPlayer is ComputerPlayer)
-                {
-                    ComputerPlayerTurn();
-                }
-                else
-                {
-                    //HumanPlayerTurn();
-                }
-            }*/
-            
-            while (MyGUI.PlayGame && playersTurn != humanPlayer)
-            {
-                Console.WriteLine("My Turn");
-                if (playersTurn == ComputerPlayer)
-                {
-                    ComputerPlayerTurn();
-                    ComputerPlayer.MakeMove(trumpSuit, CurrentCardInPlay);
-                    playersTurn = HumanPlayer;
-                }
+                ComputerPlayerTurn();
             }
             
+                 
         }
 
         public void ComputerPlayerTurn()
@@ -108,10 +87,31 @@ namespace Durak
                 myGUI.MoveCardImage(myGUI.CenterGrid, ComputerDecidedCard.myImage, 0);
                 CurrentCardInPlay = ComputerDecidedCard;
             }
-            
+
             myGUI.CurrentPlayer = humanPlayer;
+            EndTurn();
+            
         }
 
+        /// <summary>
+        /// EndTurn - Called when the player ends his turn
+        /// </summary>
+        public void EndTurn()
+        {
+            if (playersTurn == HumanPlayer)
+            {
+                humanPlayer.CanPlayCard = true;
+                myGUI.OrderCards();
+                playersTurn = ComputerPlayer;
+            }
+            else
+            {
+                playersTurn = HumanPlayer;
+                ComputerPlayerTurn();
+                
+                
+            }
+        }
 
         /// <summary>
         /// Calls from the GUI class so that the Player objects in the game get an updated hand
@@ -255,19 +255,7 @@ namespace Durak
             }
         }
 
-        /// <summary>
-        /// EndTurn - Called when the player ends his turn
-        /// </summary>
-        public void EndTurn()
-        {
-            // Draw(computerPlayer);    Big boy issues
-            myGUI.OrderCards();
-            Draw(HumanPlayer);
-            //System.Diagnostics.Debug.WriteLine("Ended Turn Click");
-            EndOfTurn = true;
-            humanPlayer.CanPlayCard = true;
-            playersTurn = ComputerPlayer;
-        }
+
 
         /// <summary>
         /// Checks if one of the players has won
@@ -312,6 +300,7 @@ namespace Durak
                     {
                         DragDrop.DoDragDrop(cardImage, cardImage, DragDropEffects.Move);
                         humanPlayer.CanPlayCard = false;
+                        CurrentCardInPlay = selectedCard;
                     }               
                 }
 
