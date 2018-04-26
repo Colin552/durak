@@ -110,11 +110,11 @@ namespace Durak
                 // Add or remove the event handler from the card's image depending on whether it is going to the Player's hand or not
                 if (toGrid == playerGrid)
                 {
-                    imageToMove.MouseMove += Card_MouseMove;
+                    imageToMove.MouseMove += myGame.Card_MouseMove;
                 }
                 else
                 {
-                    imageToMove.MouseMove -= Card_MouseMove;
+                    imageToMove.MouseMove -= myGame.Card_MouseMove;
                 }
                 CurrentCard = null;
             }
@@ -129,14 +129,14 @@ namespace Durak
         {
             TurnPlayed = false;
             bool remove = false;
-            if(currentPlayer is HumanPlayer)
-                System.Diagnostics.Debug.WriteLine("HUMAN PLAYER");
+           // if(currentPlayer is HumanPlayer)
+              //  System.Diagnostics.Debug.WriteLine("HUMAN PLAYER");
             foreach (Card card in currentPlayer.Cards)
             {
                 if (imageToRemove == card.myImage)
                 {
                     CurrentCard = card;
-                    System.Diagnostics.Debug.WriteLine(CurrentCard.ToString());
+                    //System.Diagnostics.Debug.WriteLine(CurrentCard.ToString());
                     remove = true;
                 }
             }
@@ -150,8 +150,6 @@ namespace Durak
                 }
                 removeFromGrid.Children.Remove(imageToRemove);
                 currentPlayer.Cards.Remove(CurrentCard);
-                //System.Diagnostics.Debug.WriteLine("Removed Card: " + currentCard.rank + " " + currentCard.suit);
-                //System.Diagnostics.Debug.WriteLine("Total Cards in hand: " + currentPlayer.Cards.Count());
                 myGame.UpdatePlayers(currentPlayer);
             }
             cardPlayed = remove;
@@ -177,19 +175,7 @@ namespace Durak
             TurnPlayed = true;
         }
 
-        /// <summary>
-        /// Card_MouseMove - Event handler for the Card's drag and drop functionality
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        public void Card_MouseMove(object sender, MouseEventArgs e)
-        {
-            Image cardImage = sender as Image;
-            if (cardImage != null && e.LeftButton == MouseButtonState.Pressed)
-            {
-                DragDrop.DoDragDrop(cardImage, cardImage, DragDropEffects.Move);
-            }
-        }
+        
 
         /// <summary>
         /// Places the trump card in the top left corner of the window, rotates it 90 degrees and sets its margin

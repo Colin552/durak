@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Durak"
         mc:Ignorable="d"
-        Title="StartScreen" Height="450" Width="800" Background="Red">
+        Title="StartScreen" Height="450" Width="800" Background="Red" ResizeMode="NoResize">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -45,5 +45,6 @@
                 </TransformGroup>
             </Image.RenderTransform>
         </Image>
+        <Image HorizontalAlignment="Left" MouseLeftButtonUp="MuteHandler"  Height="63" Margin="10,66,0,0" VerticalAlignment="Top" Width="57" Source="Resources/play.png" Grid.Row="2"/>
     </Grid>
 </Window>
