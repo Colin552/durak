@@ -105,7 +105,7 @@ namespace Durak
                 // Put it on the top or bottow "row" 
                 if (toGrid == CenterGrid)
                 {
-                    Thickness centerMargin = new Thickness(0, topMargin + (CenterGrid.Children.Count - topMargin), 0, 0);                 
+                    Thickness centerMargin = new Thickness(0, topMargin + ((CenterGrid.Children.Count - 2) * - topMargin), 0, 0);                 
                     imageToMove.SetValue(Grid.MarginProperty, centerMargin);
                 }
                 else
