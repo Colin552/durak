@@ -92,12 +92,12 @@ namespace Durak
         /// </summary>
         public void EndMove()
         {
-            Console.WriteLine("\nNew Move");
-            Console.WriteLine("Attack turn: " + attackTurn);
+            System.Diagnostics.Debug.WriteLine("\nNew Move");
+            System.Diagnostics.Debug.WriteLine("Attack turn: " + attackTurn);
             
             if (lastPlayer != null)
             {
-                Console.WriteLine(lastPlayer.Name + " played a card: " + lastPlayer.PlayedCard);
+                System.Diagnostics.Debug.WriteLine(lastPlayer.Name + " played a card: " + lastPlayer.PlayedCard);
                 if (attackTurn == false && lastPlayer.PlayedCard == false)
                 {
                     EndTurn();
@@ -107,7 +107,7 @@ namespace Durak
             if (CurrentCardInPlay != null)
             {
                 cardsInPlay.Add(currentCardInPlay);
-                Console.WriteLine("Card in play: " +CurrentCardInPlay.ToString());
+                System.Diagnostics.Debug.WriteLine("Card in play: " +CurrentCardInPlay.ToString());
             }
                         
             if (currentPlayer == HumanPlayer)
@@ -117,11 +117,11 @@ namespace Durak
                 myGUI.OrderCards();
                 currentPlayer = ComputerPlayer;
                 lastPlayer = HumanPlayer;
-                Console.WriteLine("Player's turn");
+                System.Diagnostics.Debug.WriteLine("Player's turn");
             }
             else
             {
-                Console.WriteLine("Computer's turn");
+                System.Diagnostics.Debug.WriteLine("Computer's turn");
                 currentPlayer = HumanPlayer;
                 lastPlayer = ComputerPlayer;
                 ComputerPlayerTurn();
@@ -131,11 +131,17 @@ namespace Durak
 
         public void EndTurn()
         {
-            Console.WriteLine("ENDING TURN");
-            Console.WriteLine("Player taking the cards: " + lastPlayer.Name);
+            System.Diagnostics.Debug.WriteLine("ENDING TURN");
+            System.Diagnostics.Debug.WriteLine("Player taking the cards: " + lastPlayer.Name);
+            System.Diagnostics.Debug.WriteLine("Center Cards");
+            
+
+            foreach (Card card in cardsInPlay)
+            {
+                System.Diagnostics.Debug.WriteLine(card.ToString());
+            }
 
             myGUI.RemoveRiver(cardsInPlay);
-
             if (lastPlayer == computerPlayer)
             {
                 myGUI.MoveRiver(myGUI.OpponentGrid);
@@ -147,6 +153,8 @@ namespace Durak
                 UpdatePlayers(humanPlayer);
             }
             attackTurn = true;
+            cardsInPlay.Clear();
+            currentCardInPlay = null;
         }
 
         /// <summary>
@@ -196,7 +204,7 @@ namespace Durak
             Card trumpCard = MyDeck.GetTopCard();
             trumpSuit = trumpCard.suit;
             myGUI.PlaceTrumpCard(trumpCard);
-            //Console.WriteLine("Trump Suit: " + trumpSuit);
+            //System.Diagnostics.Debug.WriteLine("Trump Suit: " + trumpSuit);
         }
 
         /// <summary>
