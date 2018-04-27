@@ -27,7 +27,13 @@ namespace Durak
         private bool cardPlayed;
         private bool playGame;
         private bool turnPlayed = false;
-
+        private Label lblCardsRemaining;
+        private Image deckImage = new Image();
+        public Label LblCardsRemaining
+        {
+            get { return lblCardsRemaining; }
+            set { lblCardsRemaining = value; }
+        }
 
         public Grid PlayerGrid
         {
@@ -271,7 +277,7 @@ namespace Durak
         /// </summary>
         public void PlaceDeck()
         {
-            Image deckImage = new Image();
+            
             BitmapImage bitmap = new BitmapImage();
             bitmap.BeginInit();
             bitmap.UriSource = new Uri("pack://application:,,,/Durak;component/Resources/deck.png");
@@ -288,9 +294,22 @@ namespace Durak
 
         }
 
+        public void RemoveDeckImage()
+        {
+            if (WindowGrid.Children.Contains(deckImage))
+            {
+                WindowGrid.Children.Remove(deckImage);
+            }
+        }
+
         public void SetLabelText(String message)
         {
             gameInfoLabel.Content = message;
+        }
+
+        public void SetDeckLabelText(String message)
+        {
+            lblCardsRemaining.Content = message;
         }
     }
 }

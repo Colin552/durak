@@ -36,6 +36,7 @@ namespace Durak
             gui.WindowGrid = windowGrid;
             gui.MyGame = game;
             gui.GameInfoLabel = lblGameInfo;
+            gui.LblCardsRemaining = lblDeckSize;
             game.MyGUI = gui;
         }
 

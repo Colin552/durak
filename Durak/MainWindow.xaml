@@ -57,6 +57,7 @@
         </Grid>
         <Button Name="btnPlay"  Content="Play" Margin="10,10,10,0" VerticalAlignment="Top" Height="220" Click="btnPlay_Click" Grid.Column="1" Grid.Row="1"/>
         <Button Content="End Turn" Grid.Column="2" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="2" VerticalAlignment="Top" Width="180" Height="221" Click="Button_Click"/>
-        <Label Name="lblGameInfo" Content="Test" Grid.Column="1" HorizontalAlignment="Left" Margin="10,196,0,0" Grid.Row="1" VerticalAlignment="Top" Width="794" Height="34" FontSize="14" FontWeight="Bold"/>
+        <Label Name="lblGameInfo" Content="" Grid.Column="1" HorizontalAlignment="Left" Margin="10,196,0,0" Grid.Row="1" VerticalAlignment="Top" Width="794" Height="34" FontSize="14" FontWeight="Bold"/>
+        <Label Name="lblDeckSize" Content="" Margin="75,10,74,0" VerticalAlignment="Top"/>
     </Grid>
 </Window>

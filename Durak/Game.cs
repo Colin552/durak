@@ -127,6 +127,11 @@ namespace Durak
                 ComputerPlayerTurn();
             }
             attackTurn = false;
+            myGUI.SetDeckLabelText(myDeck.CardsRemaining().ToString());
+            if (myDeck.CardsRemaining() == 0)
+            {
+                myGUI.RemoveDeckImage();
+            }
             Console.WriteLine("Computer card count: " + computerPlayer.Cards.Count);
             Console.WriteLine("Player card count: " + humanPlayer.Cards.Count);
         }
