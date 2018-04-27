@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Durak"
         mc:Ignorable="d"
-        Title="Rules" Height="846.302" Width="900" SizeToContent="Height" Topmost="True" WindowStartupLocation="CenterScreen" Background="#FFFFF4DD">
+        Title="Rules" Height="846.302" Width="900" SizeToContent="Height" Topmost="True" WindowStartupLocation="CenterScreen" Background="#FFFFF4DD" Icon="Resources/DurakIcon.ico">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="447*"/>

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Durak"
         mc:Ignorable="d"
-        Title="MainWindow" Height="800" Width="1222" ResizeMode="NoResize">
+        Title="MainWindow" Height="800" Width="1222" ResizeMode="NoResize" Icon="Resources/DurakIcon.ico">
     <Window.Background>
         <ImageBrush ImageSource="Resources/tabletexture.jpg"/>
     </Window.Background>
