@@ -94,7 +94,7 @@ namespace Durak
         }
         private int topMargin = -70;
 
-        public void MoveCardImage(Grid toGrid, Image imageToMove, int gridColumn, int row = 0)
+        public void MoveCardImage(Grid toGrid, Image imageToMove, int gridColumn = 0, int row = 0)
         {
             // Check if the grid already contains the card
             if (!toGrid.Children.Contains(imageToMove))
@@ -106,16 +106,53 @@ namespace Durak
                 // Put it on the top or bottow "row" 
                 if (toGrid == CenterGrid)
                 {
-                    Thickness centerMargin = new Thickness(0, topMargin + ((CenterGrid.Children.Count -1) * - topMargin), 0, 0);                 
-                    imageToMove.SetValue(Grid.MarginProperty, centerMargin);
+
+                    Console.WriteLine("Child count: " + centerGrid.Children.Count);
+                    int tempColumn = 0;
+                    Thickness tempThickness = new Thickness();
+                    if (CenterGrid.Children.Count > 3)
+                    {
+                        tempColumn = 1;
+                        tempThickness = new Thickness(0, topMargin + ((CenterGrid.Children.Count - 4) * -topMargin), 0, 0);
+                    }
+                    else
+                    {
+                        tempColumn = 0;
+                        tempThickness = new Thickness(0, topMargin + ((CenterGrid.Children.Count - 1) * -topMargin), 0, 0);
+                    }
+                    imageToMove.SetValue(Grid.ColumnProperty, tempColumn);
+                    imageToMove.SetValue(Grid.MarginProperty, tempThickness);
                 }
                 else
                 {
-                    Thickness cardMargin = new Thickness(0, topMargin + (row * -topMargin), 0, 0);
-                    imageToMove.SetValue(Grid.MarginProperty, cardMargin);
+                    //Thickness cardMargin = new Thickness(0, topMargin + (row * -topMargin), 0, 0);
+                    //imageToMove.SetValue(Grid.MarginProperty, cardMargin);
+
+                    
+                    Thickness tempThickness = new Thickness();
+                    int tempColumn = 0;
+
+                    if (toGrid.Children.Count <= 8)
+                    {
+                        tempThickness = new Thickness(0, topMargin + (0 * -topMargin), 0, 0);
+                        tempColumn = toGrid.Children.Count - 1;
+                    }
+                    else if (toGrid.Children.Count <= 16)
+                    {
+                        tempThickness = new Thickness(0, topMargin + (1 * -topMargin), 0, 0);
+                        tempColumn = toGrid.Children.Count -9;
+                    }
+                    else if (toGrid.Children.Count <= 24)
+                    {
+                        tempThickness = new Thickness(0, topMargin + (2 * -topMargin), 0, 0);
+                        tempColumn = toGrid.Children.Count - 17;
+                    }
+                    imageToMove.SetValue(Grid.ColumnProperty, tempColumn);
+                    imageToMove.SetValue(Grid.MarginProperty, tempThickness);
+                    
                 }
 
-                
+
 
                 // Add or remove the event handler from the card's image depending on whether it is going to the Player's hand or not
                 if (toGrid == playerGrid)
@@ -128,6 +165,44 @@ namespace Durak
                 }
                 CurrentCard = null;
             }
+        }
+
+        /// <summary>
+        /// Orders the cards in a players hand
+        /// Typically used when drawing so cards will not go over top of one another
+        /// </summary>
+        public void OrderCards()
+        {
+            //for(int i = 0; i < currentPlayer.Cards.Count(); i++)
+            //{
+
+            //    if (currentPlayer is HumanPlayer)
+            //        playerGrid.Children.Remove(currentPlayer.Cards.ElementAt(i).myImage);
+            //    else
+            //    {
+            //        opponentGrid.Children.Remove(currentPlayer.Cards.ElementAt(i).myImage);
+            //        //currentPlayer.Cards.ElementAt(i).SetFaceDown();
+            //    }
+            //    MoveCardImage(currentPlayer is HumanPlayer ? playerGrid : opponentGrid, currentPlayer.Cards.ElementAt(i).myImage, i, 0);
+
+            //}
+
+            if (currentPlayer is HumanPlayer)
+            {
+                PlayerGrid.Children.Clear();
+            }
+            else
+            {
+                opponentGrid.Children.Clear();
+            }
+
+            for (int i = 0; i < currentPlayer.Cards.Count(); i++)
+            {
+                MoveCardImage(currentPlayer is HumanPlayer ? playerGrid : opponentGrid, currentPlayer.Cards.ElementAt(i).myImage);
+
+            }
+
+            TurnPlayed = true;
         }
 
         /// <summary>
@@ -177,25 +252,7 @@ namespace Durak
             //}
         }
 
-        /// <summary>
-        /// Orders the cards in a players hand
-        /// Typically used when drawing so cards will not go over top of one another
-        /// </summary>
-        public void OrderCards()
-        {
-            for(int i = 0; i < currentPlayer.Cards.Count(); i++)
-            {
-                if (currentPlayer is HumanPlayer)
-                    playerGrid.Children.Remove(currentPlayer.Cards.ElementAt(i).myImage);
-                else
-                {
-                    opponentGrid.Children.Remove(currentPlayer.Cards.ElementAt(i).myImage);
-                    //currentPlayer.Cards.ElementAt(i).SetFaceDown();
-                }
-                MoveCardImage(currentPlayer is HumanPlayer ? playerGrid : opponentGrid, currentPlayer.Cards.ElementAt(i).myImage, i, 0);
-            }
-            TurnPlayed = true;
-        }
+
 
         /// <summary>
         /// Places the trump card in the top left corner of the window, rotates it 90 degrees and sets its margin
