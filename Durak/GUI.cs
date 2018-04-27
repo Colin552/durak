@@ -110,25 +110,32 @@ namespace Durak
                     Console.WriteLine("Child count: " + centerGrid.Children.Count);
                     int tempColumn = 0;
                     Thickness tempThickness = new Thickness();
-                    if (CenterGrid.Children.Count > 3)
-                    {
-                        tempColumn = 1;
-                        tempThickness = new Thickness(0, topMargin + ((CenterGrid.Children.Count - 4) * -topMargin), 0, 0);
-                    }
-                    else
+                    if (CenterGrid.Children.Count < 4)
                     {
                         tempColumn = 0;
                         tempThickness = new Thickness(0, topMargin + ((CenterGrid.Children.Count - 1) * -topMargin), 0, 0);
+                    }
+                    else if (CenterGrid.Children.Count < 8)
+                    {
+
+                        tempColumn = 1;
+                        tempThickness = new Thickness(0, topMargin + ((CenterGrid.Children.Count - 4) * -topMargin), 0, 0);
+                    }
+                    else if (CenterGrid.Children.Count < 16)
+                    {
+                        tempColumn = 2;
+                        tempThickness = new Thickness(0, topMargin + ((CenterGrid.Children.Count - 8) * -topMargin), 0, 0);
+                    }
+                    else
+                    {
+                        tempColumn = 3;
+                        tempThickness = new Thickness(0, topMargin + ((CenterGrid.Children.Count - 16) * -topMargin), 0, 0);
                     }
                     imageToMove.SetValue(Grid.ColumnProperty, tempColumn);
                     imageToMove.SetValue(Grid.MarginProperty, tempThickness);
                 }
                 else
-                {
-                    //Thickness cardMargin = new Thickness(0, topMargin + (row * -topMargin), 0, 0);
-                    //imageToMove.SetValue(Grid.MarginProperty, cardMargin);
-
-                    
+                {           
                     Thickness tempThickness = new Thickness();
                     int tempColumn = 0;
 
@@ -140,19 +147,22 @@ namespace Durak
                     else if (toGrid.Children.Count <= 16)
                     {
                         tempThickness = new Thickness(0, topMargin + (1 * -topMargin), 0, 0);
-                        tempColumn = toGrid.Children.Count -9;
+                        tempColumn = toGrid.Children.Count - 9;
                     }
                     else if (toGrid.Children.Count <= 24)
                     {
                         tempThickness = new Thickness(0, topMargin + (2 * -topMargin), 0, 0);
                         tempColumn = toGrid.Children.Count - 17;
                     }
+                    else
+                    {
+                        tempThickness = new Thickness(0, topMargin + (3 * -topMargin), 0, 0);
+                        tempColumn = toGrid.Children.Count - 25;
+                    }
                     imageToMove.SetValue(Grid.ColumnProperty, tempColumn);
                     imageToMove.SetValue(Grid.MarginProperty, tempThickness);
                     
                 }
-
-
 
                 // Add or remove the event handler from the card's image depending on whether it is going to the Player's hand or not
                 if (toGrid == playerGrid)
@@ -173,34 +183,19 @@ namespace Durak
         /// </summary>
         public void OrderCards()
         {
-            //for(int i = 0; i < currentPlayer.Cards.Count(); i++)
-            //{
+            PlayerGrid.Children.Clear();
+            OpponentGrid.Children.Clear();
 
-            //    if (currentPlayer is HumanPlayer)
-            //        playerGrid.Children.Remove(currentPlayer.Cards.ElementAt(i).myImage);
-            //    else
-            //    {
-            //        opponentGrid.Children.Remove(currentPlayer.Cards.ElementAt(i).myImage);
-            //        //currentPlayer.Cards.ElementAt(i).SetFaceDown();
-            //    }
-            //    MoveCardImage(currentPlayer is HumanPlayer ? playerGrid : opponentGrid, currentPlayer.Cards.ElementAt(i).myImage, i, 0);
-
-            //}
-
-            if (currentPlayer is HumanPlayer)
+            for (int i = 0; i < myGame.HumanPlayer.Cards.Count(); i++)
             {
-                PlayerGrid.Children.Clear();
-            }
-            else
-            {
-                opponentGrid.Children.Clear();
+                MoveCardImage(playerGrid, myGame.HumanPlayer.Cards.ElementAt(i).myImage);
             }
 
-            for (int i = 0; i < currentPlayer.Cards.Count(); i++)
+            for (int i = 0; i < myGame.ComputerPlayer.Cards.Count(); i++)
             {
-                MoveCardImage(currentPlayer is HumanPlayer ? playerGrid : opponentGrid, currentPlayer.Cards.ElementAt(i).myImage);
-
+                MoveCardImage(opponentGrid, myGame.ComputerPlayer.Cards.ElementAt(i).myImage);
             }
+
 
             TurnPlayed = true;
         }
