@@ -23,6 +23,10 @@ namespace Durak
         private MediaPlayer mediaPlayer = new MediaPlayer();
         private Uri muteURI = new Uri("pack://application:,,,/Durak;component/Resources/mute.png");
         private Uri playURI = new Uri("pack://application:,,,/Durak;component/Resources/play.png");
+        /// <summary>
+        /// 
+        /// <see cref="https://www.youtube.com/watch?v=U06jlgpMtQs"/>
+        /// </summary>
         public StartScreen()
         {
             InitializeComponent();

@@ -400,8 +400,9 @@ namespace Durak
                 WriteLogFile("-----------------------");
                 statistics[indexGames] += 1;
                 statistics[indexWins] += 1;
-                MessageBox.Show("Human Won");
                 WriteStatisticsFile();
+                DurakLose durak = new DurakLose(computerPlayer);
+                durak.Show();
                 return true;
             }
             else if (computerPlayer.Cards.Count == 0)
@@ -411,7 +412,8 @@ namespace Durak
                 WriteLogFile("-----------------------");
                 statistics[indexGames] += 1;
                 statistics[indexLosses] += 1;
-                MessageBox.Show("Computer Won");
+                DurakLose durak = new DurakLose(humanPlayer);
+                durak.Show();
                 WriteStatisticsFile();
                 return true;
             }
