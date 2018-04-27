@@ -60,6 +60,8 @@ namespace Durak
         {
             //game.EndTurn();
             game.EndMove();
+            if (game.CheckForWinner())
+                this.Close();
         }
         /// <summary>
         /// Once clicked, starts the game
