@@ -190,7 +190,7 @@ namespace Durak
                 else
                 {
                     opponentGrid.Children.Remove(currentPlayer.Cards.ElementAt(i).myImage);
-                    currentPlayer.Cards.ElementAt(i).SetFaceDown();
+                    //currentPlayer.Cards.ElementAt(i).SetFaceDown();
                 }
                 MoveCardImage(currentPlayer is HumanPlayer ? playerGrid : opponentGrid, currentPlayer.Cards.ElementAt(i).myImage, i, 0);
             }

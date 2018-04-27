@@ -152,6 +152,8 @@ namespace Durak
                 myGUI.MoveRiver(myGUI.PlayerGrid);
                 UpdatePlayers(humanPlayer);
             }
+            Draw(computerPlayer);
+            Draw(humanPlayer);
             attackTurn = true;
             cardsInPlay.Clear();
             currentCardInPlay = null;
@@ -182,15 +184,12 @@ namespace Durak
             // Changed code from here previously
             // before it was 'Card myCard = myDeck.GetCard(i)'
             // Now is Card 'myCard = myDeck.GetTopCard()'
-            for (int i = 0; i < 6; i++)
-            {
-                Draw(HumanPlayer);
-            }
+            Draw(HumanPlayer);
 
             for (int i = 6; i < 12; i++)
             {
                 Card myCard = MyDeck.GetTopCard();
-                myCard.SetFaceDown();
+                //myCard.SetFaceDown();
                 myGUI.MoveCardImage(myGUI.OpponentGrid, myCard.myImage, i - 6, 0);
                 ComputerPlayer.Cards.Add(myCard);
             }
@@ -263,6 +262,7 @@ namespace Durak
         /// <param name="player"></param>
         public void Draw(HumanPlayer player)
         {
+            myGUI.CurrentPlayer = player;
             for (int i = player.Cards.Count(); i < 6; i++)
             {
                 Card myCard = MyDeck.GetTopCard();
@@ -274,7 +274,6 @@ namespace Durak
                 }
 
             }
-            myGUI.CurrentPlayer = player;
             //System.Diagnostics.Debug.WriteLine("Cards: " + player.Cards.Count());
         }
 
@@ -286,9 +285,9 @@ namespace Durak
                 Card myCard = MyDeck.GetTopCard();
                 if (myCard != null)
                 {
-                    myCard.SetFaceDown();
+                    //myCard.SetFaceDown();
                     myGUI.CurrentCard = myCard;
-                    myGUI.MoveCardImage(myGUI.OpponentGrid, myCard.myImage, i - 6, 0);
+                    myGUI.MoveCardImage(myGUI.OpponentGrid, myCard.myImage, i, 0);
                     player.Cards.Add(myCard);
                 }
             }
