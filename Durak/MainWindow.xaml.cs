@@ -74,6 +74,7 @@ namespace Durak
             game.MyGUI.PlayGame = true;
             btnPlay.Visibility = Visibility.Hidden;
             game.Play();
+            btnEndTurn.IsEnabled = true;
         }
         /// <summary>
         /// Handles the exit button in the menu, closes the program
