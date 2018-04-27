@@ -39,7 +39,7 @@ namespace Durak
 
         private Card computerDecidedCard;
         private Card currentCardInPlay;
-
+        private Cards cardsInPlay = new Cards();
         private Player currentPlayer;
         private bool attackTurn = true;
         private Player lastPlayer;
@@ -106,6 +106,7 @@ namespace Durak
          
             if (CurrentCardInPlay != null)
             {
+                cardsInPlay.Add(currentCardInPlay);
                 Console.WriteLine("Card in play: " +CurrentCardInPlay.ToString());
             }
                         
@@ -133,7 +134,18 @@ namespace Durak
             Console.WriteLine("ENDING TURN");
             Console.WriteLine("Player taking the cards: " + lastPlayer.Name);
 
-            myGUI.RemoveRiver();
+            myGUI.RemoveRiver(cardsInPlay);
+
+            if (lastPlayer == computerPlayer)
+            {
+                myGUI.MoveRiver(myGUI.OpponentGrid);
+                UpdatePlayers(computerPlayer);
+            }
+            else
+            {
+                myGUI.MoveRiver(myGUI.PlayerGrid);
+                UpdatePlayers(humanPlayer);
+            }
             attackTurn = true;
         }
 
@@ -323,7 +335,6 @@ namespace Durak
                         
                     }               
                 }
-
             }
         }
 
@@ -331,8 +342,8 @@ namespace Durak
         {
             bool isValid = true;
 
-            if (currentPlayer == computerPlayer)
-            {
+            //if (currentPlayer == computerPlayer)
+            //{
                 if (CurrentCardInPlay != null)
                 {
                     if (cardToPlay.suit == CurrentCardInPlay.suit || cardToPlay.suit == trumpSuit)
@@ -347,7 +358,7 @@ namespace Durak
                         isValid = false;
                     }
                 }             
-            }
+            //}
             return isValid;
         }
 
