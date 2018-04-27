@@ -1,18 +1,17 @@
 ﻿/*
- * 
- * 
- * 
- * 
+ * Authors: Calvin Lapp, Colin Strong, Elizabeth Welch
+ * Date: May 2018 - 4/27/2018
+ * Description: How the game is run, stores computer
+ * and human player, a dekc and more for the game to run.
+ * Checks if there is a valid card to be played by the player,
+ * checks if there is a loser, and handles general game rules.
  * 
  */
 
 
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
