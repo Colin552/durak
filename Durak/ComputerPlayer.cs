@@ -21,38 +21,6 @@ namespace Durak
         {
 
         }
-        /*
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="trump"></param>
-        /// <returns></returns>
-        public Card MakeMove(Suit trump)
-        {
-            Cards cardsToPlay = new Cards();
-            Card highestCard = null;
-            // Ye i know it doesn't work if there are no trump cards :thinkining:
-            // Loops through each card in its hand and finds the highest value one for the trump suit passed
-            foreach(Card card in Cards)
-            {
-                if (card.suit == trump)
-                {
-                    highestCard = card;
-                    cardsToPlay.Add(card);
-                }
-            }
-            foreach(Card card in cardsToPlay)
-            {
-                //System.Diagnostics.Debug.WriteLine("Cards of suit: " + highestCard.rank + " of " + highestCard.suit);
-                if (highestCard.rank > card.rank && highestCard.suit == card.suit)
-                    highestCard = card;
-                else if(highestCard.rank > card.rank)
-                    highestCard = card;
-            }
-            //System.Diagnostics.Debug.WriteLine("Computer player made a move");
-            //System.Diagnostics.Debug.WriteLine("Highest card: " + highestCard.rank + " of " + highestCard.suit);
-            return highestCard;
-        }*/
 
         public Card MakeMove(Suit trump, Card cardInPlay = null)
         {
@@ -132,7 +100,12 @@ namespace Durak
 
             if (lowestPlayableCard == null)
             {
-                Console.WriteLine("Computer can not defend");
+                //Console.WriteLine("Computer can not defend");
+                PlayedCard = false;
+            }
+            else
+            {
+                PlayedCard = true;
             }
 
             return lowestPlayableCard;

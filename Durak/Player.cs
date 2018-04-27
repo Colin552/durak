@@ -14,10 +14,16 @@ namespace Durak
 {
     public abstract class Player
     {
+        private bool playedCard = false;
         private bool canPlayCard;
         private Cards myCards = new Cards();
         private bool isAttacking;
         private string myName;
+        public bool PlayedCard
+        {
+            get { return playedCard; }
+            set { playedCard = value; }
+        }
         public string Name
         {
             get { return myName; }

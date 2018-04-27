@@ -27,6 +27,8 @@ namespace Durak
         private bool cardPlayed;
         private bool playGame;
         private bool turnPlayed = false;
+        private List<Image> riverImages = new List<Image>();
+
 
         public Grid PlayerGrid
         {
@@ -107,6 +109,7 @@ namespace Durak
                 {
                     Thickness centerMargin = new Thickness(0, topMargin + ((CenterGrid.Children.Count - 2) * - topMargin), 0, 0);                 
                     imageToMove.SetValue(Grid.MarginProperty, centerMargin);
+                    riverImages.Add(imageToMove);
                 }
                 else
                 {
@@ -165,6 +168,18 @@ namespace Durak
             cardPlayed = remove;
             OrderCards();
         }
+
+
+        public void RemoveRiver()
+        {
+            Console.WriteLine("\nRemoving Images");
+            foreach (Image cardImage in riverImages)
+            {
+                Console.WriteLine(cardImage.Name);
+                RemoveCardImage(centerGrid, cardImage);
+            }
+        }
+
         /// <summary>
         /// Orders the cards in a players hand
         /// Typically used when drawing so cards will not go over top of one another
@@ -184,8 +199,6 @@ namespace Durak
             }
             TurnPlayed = true;
         }
-
-        
 
         /// <summary>
         /// Places the trump card in the top left corner of the window, rotates it 90 degrees and sets its margin
