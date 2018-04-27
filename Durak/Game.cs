@@ -139,6 +139,12 @@ namespace Durak
             }
             Console.WriteLine("Computer card count: " + computerPlayer.Cards.Count);
             Console.WriteLine("Player card count: " + humanPlayer.Cards.Count);
+
+            if (CheckForWinner())
+            {
+                // do stuff
+                Console.WriteLine("Winner");
+            }
         }
 
         public void EndTurn()
@@ -146,8 +152,7 @@ namespace Durak
             System.Diagnostics.Debug.WriteLine("ENDING TURN");
             System.Diagnostics.Debug.WriteLine("Player taking the cards: " + lastPlayer.Name);
             System.Diagnostics.Debug.WriteLine("Center Cards");
-
-            
+       
 
             foreach (Card card in cardsInPlay)
             {
