@@ -106,7 +106,7 @@ namespace Durak
                 // Put it on the top or bottow "row" 
                 if (toGrid == CenterGrid)
                 {
-                    Thickness centerMargin = new Thickness(0, topMargin + ((CenterGrid.Children.Count - 2) * - topMargin), 0, 0);                 
+                    Thickness centerMargin = new Thickness(0, topMargin + ((CenterGrid.Children.Count -1) * - topMargin), 0, 0);                 
                     imageToMove.SetValue(Grid.MarginProperty, centerMargin);
                 }
                 else
@@ -166,11 +166,7 @@ namespace Durak
 
         public void RemoveRiver(Cards riverImages)
         {
-            Console.WriteLine("\nRemoving Images");
-            foreach (Card card in riverImages)
-            {
-                CenterGrid.Children.Remove(card.myImage);
-            }
+            CenterGrid.Children.Clear();
         }
 
         public void MoveRiver(Grid toGrid)

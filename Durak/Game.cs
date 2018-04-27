@@ -337,10 +337,8 @@ namespace Durak
                     
                     if (ValidMove(selectedCard))
                     {
-                        DragDrop.DoDragDrop(cardImage, cardImage, DragDropEffects.Move);
-                        
                         CurrentCardInPlay = selectedCard;
-                        
+                        DragDrop.DoDragDrop(cardImage, cardImage, DragDropEffects.Move);                       
                     }               
                 }
             }
