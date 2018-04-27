@@ -1,0 +1,16 @@
+﻿<Window x:Class="Durak.About"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Durak"
+        mc:Ignorable="d"
+        Title="About" Height="450" Width="800">
+    <Grid>
+        <Button Content="Close" Margin="346,337,346,32" Click="Button_Click"/>
+        <Label Content="DURAK" Margin="233,10,233,0" VerticalAlignment="Top" Foreground="#FFFFDC00" FontSize="72" Cursor="Arrow" RenderTransformOrigin="0.5,0.5" FontFamily="Snap ITC"/>
+        <Label Content="About This Program" Margin="298,113,298,271" FontSize="20" FontFamily="Century Gothic" FontWeight="Bold"/>
+        <Label Name="lblAbout" Content="Content" HorizontalAlignment="Left" Height="119" Margin="49,186,0,0" VerticalAlignment="Top" Width="711" FontSize="16"/>
+
+    </Grid>
+</Window>

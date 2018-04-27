@@ -70,6 +70,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="About.xaml.cs">
+      <DependentUpon>About.xaml</DependentUpon>
+    </Compile>
     <Compile Include="CardLibrary\CardOutOfRangeException.cs" />
     <Compile Include="CardLibrary\Cards.cs" />
     <Compile Include="CardLibrary\Deck.cs" />
@@ -87,6 +90,10 @@
     <Compile Include="StartScreen.xaml.cs">
       <DependentUpon>StartScreen.xaml</DependentUpon>
     </Compile>
+    <Page Include="About.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="DurakLose.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

@@ -105,9 +105,15 @@ namespace Durak
             startWindow.Show();
             this.Close();
         }
+        /// <summary>
+        /// Opens the about form
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void mnuAbout_Click(object sender, RoutedEventArgs e)
         {
-
+            About about = new About();
+            about.Show();
         }
     }
 }
