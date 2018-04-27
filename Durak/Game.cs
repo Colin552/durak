@@ -498,7 +498,7 @@ namespace Durak
         /// </summary>
         public void WriteStatisticsFile()
         {
-            File.WriteAllText("../../Log/stastics.txt.", string.Empty);
+            File.WriteAllText("../../Log/statistics.txt.", string.Empty);
             using (System.IO.StreamWriter file = new System.IO.StreamWriter("../../Log/statistics.txt", true))
             {
                 file.WriteLine("Name: " + humanPlayer.Name);
