@@ -8,7 +8,6 @@
  * 
  */
 
-
 using System;
 using System.IO;
 using System.Linq;
@@ -83,7 +82,10 @@ namespace Durak
         }
 
         /// <summary>
-        /// 
+        /// Method for the computer players turn
+        /// Selects the card from the computer object's method
+        /// to decide on a card and then places it if there is
+        /// one.
         /// </summary>
         public void ComputerPlayerTurn()
         {
@@ -103,10 +105,8 @@ namespace Durak
                 CurrentCardInPlay = ComputerDecidedCard;
                 WriteLogFile(computerPlayer.Name + " played " + ComputerDecidedCard.ToString());
             }
-
             myGUI.CurrentPlayer = HumanPlayer;
             EndMove();
-
         }
 
         /// <summary>
@@ -114,12 +114,9 @@ namespace Durak
         /// </summary>
         public void EndMove()
         {
-            //System.Diagnostics.Debug.WriteLine("\nNew Move");
-            //System.Diagnostics.Debug.WriteLine("Attack turn: " + attackTurn);
 
             if (lastPlayer != null)
             {
-                //System.Diagnostics.Debug.WriteLine(lastPlayer.Name + " played a card: " + lastPlayer.PlayedCard);
                 if (attackTurn == false && lastPlayer.PlayedCard == false)
                 {
                     EndTurn();
@@ -234,6 +231,8 @@ namespace Durak
                     WriteLogFile(computerPlayer.Name + " is now attacking...");
                 }
             }
+            // Write to the log file empty spaces
+            // Draw for both players if they can
             WriteLogFile("");
             WriteLogFile("");
             Draw(computerPlayer);
