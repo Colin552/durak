@@ -163,6 +163,8 @@ namespace Durak
             Console.WriteLine("Computer card count: " + computerPlayer.Cards.Count);
             Console.WriteLine("Player card count: " + humanPlayer.Cards.Count);
 
+            
+
             //if (CheckForWinner())
             //{
             //    // do stuff
@@ -216,6 +218,7 @@ namespace Durak
             // Move the cards to the discard pile
             else
             {
+                myGUI.PlaceDiscardPile();
                 //MessageBox.Show("No Draw " + attackingPlayer.Name);
                 if (attackingPlayer is ComputerPlayer)
                 {

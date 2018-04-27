@@ -29,6 +29,9 @@ namespace Durak
         private bool turnPlayed = false;
         private Label lblCardsRemaining;
         private Image deckImage = new Image();
+        private Image discardPile = new Image();
+        private bool discardPlaced = false;
+
         public Label LblCardsRemaining
         {
             get { return lblCardsRemaining; }
@@ -301,6 +304,30 @@ namespace Durak
             {
                 WindowGrid.Children.Remove(deckImage);
             }
+        }
+
+        public void PlaceDiscardPile()
+        {
+            if (discardPlaced == false)
+            {
+                discardPlaced = true;
+                BitmapImage bitmap = new BitmapImage();
+                bitmap.BeginInit();
+                bitmap.UriSource = new Uri("pack://application:,,,/Durak;component/Resources/deck.png");
+                bitmap.EndInit();
+                discardPile.Source = bitmap;
+                discardPile.Stretch = Stretch.Fill;
+                discardPile.Width = 110;
+                discardPile.Height = 170;
+                discardPile.Name = "discard";
+
+                Thickness discardMargin = new Thickness(0, 0, 0, 0);
+                WindowGrid.Children.Add(discardPile);
+                discardPile.SetValue(Grid.ColumnProperty, 2);
+                discardPile.SetValue(Grid.RowProperty, 1);
+                discardPile.SetValue(Grid.MarginProperty, discardMargin);
+            }
+            
         }
 
         public void SetLabelText(String message)
