@@ -100,7 +100,12 @@ namespace Durak
 
             if (lowestPlayableCard == null)
             {
-                Console.WriteLine("Computer can not defend");
+                //Console.WriteLine("Computer can not defend");
+                PlayedCard = false;
+            }
+            else
+            {
+                PlayedCard = true;
             }
 
             return lowestPlayableCard;

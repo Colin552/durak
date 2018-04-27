@@ -39,9 +39,9 @@ namespace Durak
 
         private Card computerDecidedCard;
         private Card currentCardInPlay;
-        //public static Player attackingPlayer;
-        private Player playersTurn;
-
+        private Player currentPlayer;
+        private bool attackTurn = true;
+        private Player lastPlayer;
         public Game(int numOfCards)
         {
             Deck newDeck = new Deck(numOfCards);
@@ -56,23 +56,17 @@ namespace Durak
             myGUI.CurrentPlayer = humanPlayer;
             InitialDraw();
             SetTrump();
-            //attackingPlayer = DetermineAttacker();
-            playersTurn = DetermineAttacker();
+            currentPlayer = DetermineAttacker();
             humanPlayer.CanPlayCard = true;
-            if (playersTurn == ComputerPlayer)
-            {
-                EndMove();
-            }
-            
-                 
+            attackTurn = true;
+
+            EndMove();
         }
 
         public void ComputerPlayerTurn()
         {
             // Set the current player to the computer 
-            myGUI.CurrentPlayer = computerPlayer;
-
-            
+            myGUI.CurrentPlayer = computerPlayer;       
 
             // Allow the computer to make a decision
             ComputerDecidedCard = computerPlayer.MakeMove(trumpSuit,CurrentCardInPlay);
@@ -86,38 +80,60 @@ namespace Durak
                 myGUI.MoveCardImage(myGUI.CenterGrid, ComputerDecidedCard.myImage, 0);
                 CurrentCardInPlay = ComputerDecidedCard;
             }
-
-            myGUI.CurrentPlayer = humanPlayer;
+            
+            myGUI.CurrentPlayer = HumanPlayer;
             EndMove();
             
         }
 
         /// <summary>
-        /// EndMove - Called when the player ends his turn
+        /// EndMove - Called when either the computer or player finishes his move
         /// </summary>
         public void EndMove()
         {
+            Console.WriteLine("\nNew Move");
+            Console.WriteLine("Attack turn: " + attackTurn);
+            
+            if (lastPlayer != null)
+            {
+                Console.WriteLine(lastPlayer.Name + " played a card: " + lastPlayer.PlayedCard);
+                if (attackTurn == false && lastPlayer.PlayedCard == false)
+                {
+                    EndTurn();
+                }
+            }
+            
+
+            
+            
             if (CurrentCardInPlay != null)
             {
                 Console.WriteLine("Card in play: " +CurrentCardInPlay.ToString());
             }
-            
-            if (playersTurn == HumanPlayer)
+                        
+            if (currentPlayer == HumanPlayer)
             {
                 humanPlayer.CanPlayCard = true;
+                humanPlayer.PlayedCard = false;
                 myGUI.OrderCards();
-                playersTurn = ComputerPlayer;
+                currentPlayer = ComputerPlayer;
+                lastPlayer = HumanPlayer;
+                Console.WriteLine("Player's turn");
             }
             else
             {
-                playersTurn = HumanPlayer;
+                Console.WriteLine("Computer's turn");
+                currentPlayer = HumanPlayer;
+                lastPlayer = ComputerPlayer;
                 ComputerPlayerTurn();
             }
+            attackTurn = false;
         }
 
         public void EndTurn()
         {
-
+            Console.WriteLine("ENDING TURN");
+            attackTurn = true;
         }
 
         /// <summary>
@@ -201,19 +217,19 @@ namespace Durak
             if (computerLowestRank > humanLowestRank)
             {
                 MyGUI.SetLabelText("You are attacking");
-                playersTurn = HumanPlayer;
+                currentPlayer = HumanPlayer;
                 return HumanPlayer;
             }
             else if (computerLowestRank < humanLowestRank)
             {
                 MyGUI.SetLabelText("Computer is attacking");
-                playersTurn = ComputerPlayer;
+                currentPlayer = ComputerPlayer;
                 return ComputerPlayer;
             }
             else
             {
                 MyGUI.SetLabelText("Tie, you are attacking");
-                playersTurn = HumanPlayer;
+                currentPlayer = HumanPlayer;
                 return humanPlayer;
             }
         }
@@ -301,8 +317,9 @@ namespace Durak
                     if (ValidMove(selectedCard))
                     {
                         DragDrop.DoDragDrop(cardImage, cardImage, DragDropEffects.Move);
-                        humanPlayer.CanPlayCard = false;
+                        
                         CurrentCardInPlay = selectedCard;
+                        
                     }               
                 }
 
@@ -313,27 +330,25 @@ namespace Durak
         {
             bool isValid = true;
 
-            if (playersTurn == computerPlayer)
+            if (currentPlayer == computerPlayer)
             {
-                //Console.WriteLine(CurrentCardInPlay.ToString());
-                if (cardToPlay.suit == CurrentCardInPlay.suit || cardToPlay.suit == trumpSuit)
+                if (CurrentCardInPlay != null)
                 {
-                    Console.WriteLine("Valid suit");
-                    if (!(cardToPlay.rank > CurrentCardInPlay.rank))
+                    if (cardToPlay.suit == CurrentCardInPlay.suit || cardToPlay.suit == trumpSuit)
                     {
-                        isValid = false;
+                        if (!(cardToPlay.rank > CurrentCardInPlay.rank))
+                        {
+                            isValid = false;
+                        }
                     }
                     else
                     {
-                        Console.WriteLine("Valid rank");
+                        isValid = false;
                     }
-                }
-                else
-                {
-                    isValid = false;
-                }
+                }             
             }
             return isValid;
         }
+
     }
 }
