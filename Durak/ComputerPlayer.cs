@@ -51,7 +51,7 @@ namespace Durak
                     {
                         if (card.suit == trump)
                         {
-                            if (card.rank > cardInPlay.rank)
+                            if (card.rank > cardInPlay.rank || cardInPlay.suit != trump)
                             {
                                 playableCards.Add(card);
 

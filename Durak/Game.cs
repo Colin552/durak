@@ -34,7 +34,7 @@ namespace Durak
         public GUI MyGUI { get => myGUI; set => myGUI = value; }
         public Card ComputerDecidedCard { get => computerDecidedCard; set => computerDecidedCard = value; }
         public Card CurrentCardInPlay { get => currentCardInPlay; set => currentCardInPlay = value; }
-        
+
         public Suit trumpSuit;
 
         private Card computerDecidedCard;
@@ -67,24 +67,24 @@ namespace Durak
         public void ComputerPlayerTurn()
         {
             // Set the current player to the computer 
-            myGUI.CurrentPlayer = computerPlayer;       
+            myGUI.CurrentPlayer = computerPlayer;
 
             // Allow the computer to make a decision
-            ComputerDecidedCard = computerPlayer.MakeMove(trumpSuit,CurrentCardInPlay);
+            ComputerDecidedCard = computerPlayer.MakeMove(trumpSuit, CurrentCardInPlay);
             // For each of the computers cards in hand, find which one matches the returned\
             // Choice for card to play and get its index
             if (ComputerDecidedCard != null)
-            {               
+            {
                 // Remove the card from the grid
                 myGUI.RemoveCardImage(myGUI.OpponentGrid, ComputerDecidedCard.myImage);
                 // Move the card to the middle
                 myGUI.MoveCardImage(myGUI.CenterGrid, ComputerDecidedCard.myImage, 0);
                 CurrentCardInPlay = ComputerDecidedCard;
             }
-            
+
             myGUI.CurrentPlayer = HumanPlayer;
             EndMove();
-            
+
         }
 
         /// <summary>
@@ -94,7 +94,7 @@ namespace Durak
         {
             System.Diagnostics.Debug.WriteLine("\nNew Move");
             System.Diagnostics.Debug.WriteLine("Attack turn: " + attackTurn);
-            
+
             if (lastPlayer != null)
             {
                 System.Diagnostics.Debug.WriteLine(lastPlayer.Name + " played a card: " + lastPlayer.PlayedCard);
@@ -103,13 +103,13 @@ namespace Durak
                     EndTurn();
                 }
             }
-         
+
             if (CurrentCardInPlay != null)
             {
                 cardsInPlay.Add(currentCardInPlay);
-                System.Diagnostics.Debug.WriteLine("Card in play: " +CurrentCardInPlay.ToString());
+                System.Diagnostics.Debug.WriteLine("Card in play: " + CurrentCardInPlay.ToString());
             }
-                        
+
             if (currentPlayer == HumanPlayer)
             {
                 humanPlayer.CanPlayCard = true;
@@ -134,7 +134,7 @@ namespace Durak
             System.Diagnostics.Debug.WriteLine("ENDING TURN");
             System.Diagnostics.Debug.WriteLine("Player taking the cards: " + lastPlayer.Name);
             System.Diagnostics.Debug.WriteLine("Center Cards");
-            
+
 
             foreach (Card card in cardsInPlay)
             {
@@ -164,7 +164,7 @@ namespace Durak
         /// <param name="player"></param>
         public void UpdatePlayers(Player player)
         {
-            if(player is HumanPlayer)
+            if (player is HumanPlayer)
             {
                 HumanPlayer.Cards = player.Cards;
             }
@@ -220,7 +220,7 @@ namespace Durak
             //Loops through the computer and human player's hands and finds their lowest rank of the trump suit
             for (int i = 1; humanPlayer.Cards.Count > i; i++)
             {
-                if (humanPlayer.Cards[i - 1].rank < humanLowestRank && humanPlayer.Cards[i-1].suit == trumpSuit)
+                if (humanPlayer.Cards[i - 1].rank < humanLowestRank && humanPlayer.Cards[i - 1].suit == trumpSuit)
                 {
                     humanLowestRank = humanPlayer.Cards[i - 1].rank;
                 }
@@ -266,13 +266,13 @@ namespace Durak
             for (int i = player.Cards.Count(); i < 6; i++)
             {
                 Card myCard = MyDeck.GetTopCard();
-                if(myCard != null)
+                if (myCard != null)
                 {
                     //System.Diagnostics.Debug.WriteLine("New Card: " + myCard);
                     myGUI.MoveCardImage(myGUI.PlayerGrid, myCard.myImage, i, 0);
                     player.Cards.Add(myCard);
                 }
-                
+
             }
             myGUI.CurrentPlayer = player;
             //System.Diagnostics.Debug.WriteLine("Cards: " + player.Cards.Count());
@@ -334,12 +334,12 @@ namespace Durak
                     Suit cardSuit = (Suit)Enum.Parse(typeof(Suit), stringSuit);
                     Card selectedCard = new Card(cardSuit, cardRank);
 
-                    
+
                     if (ValidMove(selectedCard))
                     {
                         CurrentCardInPlay = selectedCard;
-                        DragDrop.DoDragDrop(cardImage, cardImage, DragDropEffects.Move);                       
-                    }               
+                        DragDrop.DoDragDrop(cardImage, cardImage, DragDropEffects.Move);
+                    }
                 }
             }
         }
@@ -350,20 +350,24 @@ namespace Durak
 
             //if (currentPlayer == computerPlayer)
             //{
-                if (CurrentCardInPlay != null)
+            if (CurrentCardInPlay != null)
+            {
+                if (cardToPlay.suit == CurrentCardInPlay.suit || cardToPlay.suit == trumpSuit && currentCardInPlay.suit != trumpSuit)
                 {
-                    if (cardToPlay.suit == CurrentCardInPlay.suit || cardToPlay.suit == trumpSuit)
+                    if (!(cardToPlay.suit == trumpSuit && currentCardInPlay.suit != trumpSuit))
                     {
-                        if (!(cardToPlay.rank > CurrentCardInPlay.rank))
+                        if ((cardToPlay.rank < CurrentCardInPlay.rank))
                         {
                             isValid = false;
                         }
                     }
-                    else
-                    {
-                        isValid = false;
-                    }
-                }             
+
+                }
+                else
+                {
+                    isValid = false;
+                }
+            }
             //}
             return isValid;
         }
