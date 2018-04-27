@@ -102,15 +102,15 @@ namespace Durak
                     {
                         if (card.suit == trump)
                         {
-                            if (card.rank > cardInPlay.rank)
-                            {
+                            //if (card.rank > cardInPlay.rank)
+                           // {
                                 playableCards.Add(card);
 
                                 if (lowestPlayableCard == null)
                                 {
                                     lowestPlayableCard = card;
                                 }
-                            }
+                           // }
                         }
                     }
                 }
