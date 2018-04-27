@@ -272,6 +272,8 @@ namespace Durak
             trumpCardImage.RenderTransform = horizontalTransform;
             windowGrid.Children.Add(trumpCardImage);
             trumpCardImage.SetValue(Grid.MarginProperty, cardMargin);
+            trumpCardImage.SetValue(Grid.ColumnProperty, 0);
+            trumpCardImage.SetValue(Grid.RowProperty, 1);
 
             PlaceDeck();
         }
@@ -295,6 +297,8 @@ namespace Durak
             Thickness deckMargin = new Thickness(0, 0, 0, 0);
             WindowGrid.Children.Add(deckImage);
             deckImage.SetValue(Grid.MarginProperty, deckMargin);
+            deckImage.SetValue(Grid.ColumnProperty, 0);
+            deckImage.SetValue(Grid.RowProperty, 1);
 
         }
 
@@ -324,7 +328,7 @@ namespace Durak
                 Thickness discardMargin = new Thickness(0, 0, 0, 0);
                 WindowGrid.Children.Add(discardPile);
                 discardPile.SetValue(Grid.ColumnProperty, 2);
-                discardPile.SetValue(Grid.RowProperty, 1);
+                discardPile.SetValue(Grid.RowProperty, 2);
                 discardPile.SetValue(Grid.MarginProperty, discardMargin);
             }
             

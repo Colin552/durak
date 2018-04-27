@@ -532,6 +532,16 @@ namespace Durak.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap tabletexture {
+            get {
+                object obj = ResourceManager.GetObject("tabletexture", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Ten_of_Club {
             get {
                 object obj = ResourceManager.GetObject("Ten_of_Club", resourceCulture);

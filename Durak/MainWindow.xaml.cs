@@ -73,5 +73,39 @@ namespace Durak
             btnPlay.Visibility = Visibility.Hidden;
             game.Play();
         }
+        /// <summary>
+        /// Handles the exit button in the menu, closes the program
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void mnuExit_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+        /// <summary>
+        /// Shows the rules window when clicked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void mnuRules_Click(object sender, RoutedEventArgs e)
+        {
+            RulesForm rulesWindow = new RulesForm();
+            rulesWindow.Show();
+        }
+        /// <summary>
+        /// Opens a new game, closes the current game in progress.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void mnuNew_Click(object sender, RoutedEventArgs e)
+        {
+            StartScreen startWindow = new StartScreen();
+            startWindow.Show();
+            this.Close();
+        }
+        private void mnuAbout_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
