@@ -96,6 +96,24 @@ namespace Durak
                         lowestPlayableCard = card;
                     }
                 }
+                if (playableCards.Count == 0)
+                {
+                    foreach (Card card in Cards)
+                    {
+                        if (card.suit == trump)
+                        {
+                            if (card.rank > cardInPlay.rank)
+                            {
+                                playableCards.Add(card);
+
+                                if (lowestPlayableCard == null)
+                                {
+                                    lowestPlayableCard = card;
+                                }
+                            }
+                        }
+                    }
+                }
             }
 
             if (lowestPlayableCard == null)
