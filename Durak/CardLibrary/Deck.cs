@@ -25,24 +25,20 @@ namespace Durak
             {
                 for (int suitVal = 0; suitVal < 4; suitVal++)
                 {
-                    for (int rankVal = 6; rankVal < 14; rankVal++)
+                    for (int rankVal = 5; rankVal < 14; rankVal++)
                     {
                         cards.Add(new Card((Suit)suitVal, (Rank)rankVal));
                     }
-                    // Adding an ace manually because it does not reach in the loop
-                    cards.Add(new Card((Suit)suitVal, Rank.Ace));
                 }
             }
             else if(numCards == 20)
             {
                 for (int suitVal = 0; suitVal < 4; suitVal++)
                 {
-                    for (int rankVal = 10; rankVal < 14; rankVal++)
+                    for (int rankVal = 9; rankVal < 14; rankVal++)
                     {
                         cards.Add(new Card((Suit)suitVal, (Rank)rankVal));
                     }
-                    // Adding an ace manually because it does not reach in the loop
-                    cards.Add(new Card((Suit)suitVal, Rank.Ace));
                 }
             }
             else if(numCards == 52)
@@ -53,7 +49,6 @@ namespace Durak
                     {
                         cards.Add(new Card((Suit)suitVal, (Rank)rankVal));
                     }
-                    // No need for manual adding of an ace because it is reached in the loop
                 }
             }
             this.Shuffle();

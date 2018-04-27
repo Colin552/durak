@@ -199,6 +199,7 @@ namespace Durak
 
             for (int i = 0; i < myGame.ComputerPlayer.Cards.Count(); i++)
             {
+                myGame.ComputerPlayer.Cards.ElementAt(i).SetFaceDown();
                 MoveCardImage(opponentGrid, myGame.ComputerPlayer.Cards.ElementAt(i).myImage);
             }
 

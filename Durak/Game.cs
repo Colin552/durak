@@ -9,6 +9,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -37,12 +38,20 @@ namespace Durak
 
         public Suit trumpSuit;
 
+        private int[] statistics = new int[3];
         private Card computerDecidedCard;
         private Card currentCardInPlay;
         private Cards cardsInPlay = new Cards();
         private Player currentPlayer;
         private bool attackTurn = true;
         private Player lastPlayer;
+        private Player attackingPlayer;
+
+        private const int indexGames = 0;
+        private const int indexWins = 1;
+        private const int indexLosses = 2;
+
+
         public Game(int numOfCards)
         {
             Deck newDeck = new Deck(numOfCards);
@@ -54,16 +63,29 @@ namespace Durak
         /// </summary>
         public void Play()
         {
+            ReadStatisticsFile();
+            // Clear the current log text file
+            File.WriteAllText("../../Log/log.txt.", string.Empty);
+            // Write new game in text file
+            WriteLogFile("Date: " + DateTime.Now.ToString());
+            WriteLogFile("Game start, player name: " + humanPlayer.Name);
+            WriteLogFile("");
             myGUI.CurrentPlayer = humanPlayer;
             InitialDraw();
             SetTrump();
+            WriteLogFile("Trump suit: " + trumpSuit);
             currentPlayer = DetermineAttacker();
+            WriteLogFile("Attacking first: " + currentPlayer.Name);
+            WriteLogFile("");
             humanPlayer.CanPlayCard = true;
             attackTurn = true;
 
             EndMove();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public void ComputerPlayerTurn()
         {
             // Set the current player to the computer 
@@ -80,6 +102,7 @@ namespace Durak
                 // Move the card to the middle
                 myGUI.MoveCardImage(myGUI.CenterGrid, ComputerDecidedCard.myImage, 0);
                 CurrentCardInPlay = ComputerDecidedCard;
+                WriteLogFile(computerPlayer.Name + " played " + ComputerDecidedCard.ToString());
             }
 
             myGUI.CurrentPlayer = HumanPlayer;
@@ -140,42 +163,83 @@ namespace Durak
             Console.WriteLine("Computer card count: " + computerPlayer.Cards.Count);
             Console.WriteLine("Player card count: " + humanPlayer.Cards.Count);
 
-            if (CheckForWinner())
-            {
-                // do stuff
-                Console.WriteLine("Winner");
-            }
+            //if (CheckForWinner())
+            //{
+            //    // do stuff
+            //    Console.WriteLine("Winner");
+            //}
         }
 
+        /// <summary>
+        /// Method called when the bout has ended
+        /// Checks to see if there is a winner,
+        /// Checks to see if the defending player lost or not
+        /// </summary>
         public void EndTurn()
         {
             System.Diagnostics.Debug.WriteLine("ENDING TURN");
             System.Diagnostics.Debug.WriteLine("Player taking the cards: " + lastPlayer.Name);
             System.Diagnostics.Debug.WriteLine("Center Cards");
-       
 
-            foreach (Card card in cardsInPlay)
-            {
-                System.Diagnostics.Debug.WriteLine(card.ToString());
-                lastPlayer.Cards.Add(card);
-            }
-
+            WriteLogFile("");
+            WriteLogFile("End of bout");
             myGUI.RemoveRiver(cardsInPlay);
-            if (lastPlayer == computerPlayer)
+            // If the defending player does not win the bout
+            // Move cards to players hand
+            if(lastPlayer != attackingPlayer)
             {
-                myGUI.MoveRiver(myGUI.OpponentGrid);
-                UpdatePlayers(computerPlayer);
+
+                foreach (Card card in cardsInPlay)
+                {
+                    System.Diagnostics.Debug.WriteLine(card.ToString());
+                    lastPlayer.Cards.Add(card);
+                }
+
+                if (lastPlayer == computerPlayer)
+                {
+                    WriteLogFile(computerPlayer.Name + " lost the defence.");
+                    myGUI.MoveRiver(myGUI.OpponentGrid);
+                    attackingPlayer = humanPlayer;
+                    MyGUI.SetLabelText("You are attacking");
+                    UpdatePlayers(computerPlayer);
+                }
+                else
+                {
+                    WriteLogFile(humanPlayer.Name + " lost the defence.");
+                    myGUI.MoveRiver(myGUI.PlayerGrid);
+                    attackingPlayer = ComputerPlayer;
+                    MyGUI.SetLabelText("Computer is attacking");
+                    UpdatePlayers(humanPlayer);
+                }
             }
+            // If the defending player won the bout
+            // Move the cards to the discard pile
             else
             {
-                myGUI.MoveRiver(myGUI.PlayerGrid);
-                UpdatePlayers(humanPlayer);
+                //MessageBox.Show("No Draw " + attackingPlayer.Name);
+                if (attackingPlayer is ComputerPlayer)
+                {
+                    WriteLogFile(attackingPlayer.Name + " failed the attack.");
+                    MyGUI.SetLabelText("You are attacking");
+                    attackingPlayer = humanPlayer;
+                    WriteLogFile(humanPlayer.Name + " is now attacking...");
+                }
+                else
+                {
+                    MyGUI.SetLabelText("Computer is attacking");
+                    WriteLogFile(humanPlayer.Name + " failed the attack.");
+                    attackingPlayer = computerPlayer;
+                    WriteLogFile(computerPlayer.Name + " is now attacking...");
+                }
             }
+            WriteLogFile("");
+            WriteLogFile("");
             Draw(computerPlayer);
             Draw(humanPlayer);
             attackTurn = true;
             cardsInPlay.Clear();
             currentCardInPlay = null;
+            CheckForWinner();
         }
 
         /// <summary>
@@ -203,15 +267,14 @@ namespace Durak
             // Changed code from here previously
             // before it was 'Card myCard = myDeck.GetCard(i)'
             // Now is Card 'myCard = myDeck.GetTopCard()'
+            WriteLogFile("Cards in " + HumanPlayer.Name + "'s starting hand:");
             Draw(HumanPlayer);
-
-            for (int i = 6; i < 12; i++)
-            {
-                Card myCard = MyDeck.GetTopCard();
-                //myCard.SetFaceDown();
-                myGUI.MoveCardImage(myGUI.OpponentGrid, myCard.myImage, i - 6, 0);
-                ComputerPlayer.Cards.Add(myCard);
-            }
+            WriteLogFile("");
+            WriteLogFile("Cards in " + ComputerPlayer.Name + "'s starting hand:");
+            Draw(ComputerPlayer);
+            //WriteLogFile("");
+            myGUI.CurrentPlayer = humanPlayer;
+            WriteLogFile("");
         }
 
         /// <summary>
@@ -256,18 +319,21 @@ namespace Durak
             if (computerLowestRank > humanLowestRank)
             {
                 MyGUI.SetLabelText("You are attacking");
+                attackingPlayer = humanPlayer;
                 currentPlayer = HumanPlayer;
                 return HumanPlayer;
             }
             else if (computerLowestRank < humanLowestRank)
             {
                 MyGUI.SetLabelText("Computer is attacking");
+                attackingPlayer = ComputerPlayer;
                 currentPlayer = ComputerPlayer;
                 return ComputerPlayer;
             }
             else
             {
                 MyGUI.SetLabelText("Tie, you are attacking");
+                attackingPlayer = humanPlayer;
                 currentPlayer = HumanPlayer;
                 return humanPlayer;
             }
@@ -290,12 +356,16 @@ namespace Durak
                     //System.Diagnostics.Debug.WriteLine("New Card: " + myCard);
                     myGUI.MoveCardImage(myGUI.PlayerGrid, myCard.myImage, i, 0);
                     player.Cards.Add(myCard);
+                    WriteLogFile(player.Name + " drew " + myCard.ToString());
                 }
-
             }
             //System.Diagnostics.Debug.WriteLine("Cards: " + player.Cards.Count());
         }
 
+        /// <summary>
+        ///  Draw method for the computer player
+        /// </summary>
+        /// <param name="player"></param>
         public void Draw(ComputerPlayer player)
         {
             myGUI.CurrentPlayer = player;
@@ -304,15 +374,15 @@ namespace Durak
                 Card myCard = MyDeck.GetTopCard();
                 if (myCard != null)
                 {
-                    //myCard.SetFaceDown();
                     myGUI.CurrentCard = myCard;
                     myGUI.MoveCardImage(myGUI.OpponentGrid, myCard.myImage, i, 0);
                     player.Cards.Add(myCard);
+                    // Write to log file
+                    WriteLogFile(player.Name + " drew " + myCard.ToString());
+                    myCard.SetFaceDown();
                 }
             }
         }
-
-
 
         /// <summary>
         /// Checks if one of the players has won
@@ -322,10 +392,24 @@ namespace Durak
         {
             if (humanPlayer.Cards.Count == 0)
             {
+                WriteLogFile("-----------------------");
+                WriteLogFile(humanPlayer.Name + " HAS WON!");
+                WriteLogFile("-----------------------");
+                statistics[indexGames] += 1;
+                statistics[indexWins] += 1;
+                MessageBox.Show("Human Won");
+                WriteStatisticsFile();
                 return true;
             }
             else if (computerPlayer.Cards.Count == 0)
             {
+                WriteLogFile("-----------------------");
+                WriteLogFile(computerPlayer.Name + " HAS WON!");
+                WriteLogFile("-----------------------");
+                statistics[indexGames] += 1;
+                statistics[indexLosses] += 1;
+                MessageBox.Show("Computer Won");
+                WriteStatisticsFile();
                 return true;
             }
             else
@@ -356,12 +440,19 @@ namespace Durak
                     if (ValidMove(selectedCard))
                     {
                         CurrentCardInPlay = selectedCard;
+                        // Write to the log file
+                        WriteLogFile(humanPlayer.Name + " played " + selectedCard.ToString());
                         DragDrop.DoDragDrop(cardImage, cardImage, DragDropEffects.Move);
                     }
                 }
             }
         }
 
+        /// <summary>
+        /// Checks to see if the Human players move is valid or not
+        /// </summary>
+        /// <param name="cardToPlay"></param>
+        /// <returns>True if the move is valid, flase if not</returns>
         public bool ValidMove(Card cardToPlay)
         {
             bool isValid = true;
@@ -379,7 +470,6 @@ namespace Durak
                             isValid = false;
                         }
                     }
-
                 }
                 else
                 {
@@ -390,5 +480,69 @@ namespace Durak
             return isValid;
         }
 
+        /// <summary>
+        /// Appends a message onto the current Log File
+        /// </summary>
+        /// <param name="message">The message that will be written to the file</param>
+        public void WriteLogFile(string message)
+        {
+            using (System.IO.StreamWriter file = new System.IO.StreamWriter("../../Log/log.txt", true))
+            {
+                file.WriteLine(message);
+            }
+        }
+
+        /// <summary>
+        /// Writes the statistics file
+        /// <see cref="https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/file-system/how-to-write-to-a-text-file"/>
+        /// </summary>
+        public void WriteStatisticsFile()
+        {
+            File.WriteAllText("../../Log/stastics.txt.", string.Empty);
+            using (System.IO.StreamWriter file = new System.IO.StreamWriter("../../Log/statistics.txt", true))
+            {
+                file.WriteLine("Name: " + humanPlayer.Name);
+                file.WriteLine();
+                file.WriteLine("Number of Games");
+                file.WriteLine(statistics[indexGames]);
+                file.WriteLine();
+                file.WriteLine("Wins");
+                file.WriteLine(statistics[indexWins]);
+                file.WriteLine();
+                file.WriteLine("Losses");
+                file.WriteLine(statistics[indexLosses]);
+            }
+        }
+
+        /// <summary>
+        /// Reads the statistics file to save current data
+        /// <see cref="https://stackoverflow.com/questions/32500084/read-second-line-and-save-it-from-txt-c-sharp"/>
+        /// </summary>
+        public void ReadStatisticsFile()
+        {
+            int numGames;
+            int numWins;
+            int numLosses;
+            using (var reader = new StreamReader("../../Log/statistics.txt"))
+            {
+                reader.ReadLine();
+                reader.ReadLine();
+                reader.ReadLine();
+                // Skip first 3 lines
+                int.TryParse(reader.ReadLine(), out numGames);
+                reader.ReadLine();
+                reader.ReadLine();
+                // Skip next lines just to get to data
+                int.TryParse(reader.ReadLine(), out numWins);
+                reader.ReadLine();
+                reader.ReadLine();
+                // Skip lines again to access wanted data
+                int.TryParse(reader.ReadLine(), out numLosses);
+            }
+            // Save the retireved data in the statistics array
+            statistics[indexGames] = numGames;
+            statistics[indexWins] = numWins;
+            statistics[indexLosses] = numLosses;
+        }
     }
 }

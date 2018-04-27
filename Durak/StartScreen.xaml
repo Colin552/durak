@@ -46,5 +46,6 @@
             </Image.RenderTransform>
         </Image>
         <Image HorizontalAlignment="Left" MouseLeftButtonUp="MuteHandler"  Height="63" Margin="10,66,0,0" VerticalAlignment="Top" Width="57" Source="Resources/play.png" Grid.Row="2"/>
+        <Button Name="btnStatistics" Content="Reset Statistics" Grid.Column="2" HorizontalAlignment="Left" Margin="76,10,0,0" VerticalAlignment="Top" Width="114"  Background="#FFF3FF02" Foreground="Red" Click="Button_Click" />
     </Grid>
 </Window>

@@ -8,8 +8,7 @@ namespace Durak
 {
     public enum Rank
     {
-        Ace = 1,
-        Deuce,
+        Deuce = 1,
         Three,
         Four,
         Five,
@@ -21,5 +20,6 @@ namespace Durak
         Jack,
         Queen,
         King,
+        Ace
     }
 }

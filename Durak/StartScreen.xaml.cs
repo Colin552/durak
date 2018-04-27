@@ -87,5 +87,15 @@ namespace Durak
             newAudioImage.EndInit();
             audioImage.Source = newAudioImage;
         }
+
+        /// <summary>
+        ///  Clears the statistics file
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            System.IO.File.WriteAllText("../../Log/statistics.txt.", string.Empty);
+        }
     }
 }
