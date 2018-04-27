@@ -78,6 +78,9 @@
     <Compile Include="GUI.cs" />
     <Compile Include="CardLibrary\Rank.cs" />
     <Compile Include="CardLibrary\Suit.cs" />
+    <Compile Include="RulesForm.xaml.cs">
+      <DependentUpon>RulesForm.xaml</DependentUpon>
+    </Compile>
     <Compile Include="StartScreen.xaml.cs">
       <DependentUpon>StartScreen.xaml</DependentUpon>
     </Compile>
@@ -95,6 +98,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="RulesForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="StartScreen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

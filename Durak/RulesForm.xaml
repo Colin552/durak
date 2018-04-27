@@ -1,0 +1,19 @@
+﻿<Window x:Class="Durak.RulesForm"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Durak"
+        mc:Ignorable="d"
+        Title="Rules" Height="846.302" Width="900" SizeToContent="Height" Topmost="True" WindowStartupLocation="CenterScreen" Background="#FFFFF4DD">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="447*"/>
+            <ColumnDefinition Width="445*"/>
+        </Grid.ColumnDefinitions>
+        <Label Content="DURAK" Margin="292,10,293,0" Foreground="#FFAC0303" FontSize="72" Cursor="Arrow" RenderTransformOrigin="0.5,0.5" FontFamily="Snap ITC" Height="103" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+        <Label Content="Rules" Margin="387,113,387,405" Foreground="Black" FontSize="36" Cursor="Arrow" RenderTransformOrigin="0.5,0.5" FontFamily="Courier New" FontWeight="Bold" Grid.ColumnSpan="2"/>
+        <Border BorderBrush="Black" BorderThickness="1" Height="2" Margin="96,169,96,0" VerticalAlignment="Top" Background="Black" Grid.ColumnSpan="2"/>
+        <Label Name="lblRules" Grid.ColumnSpan="2" Content="Rules" Margin="0,190,53,0" Height="600" VerticalAlignment="Top" HorizontalAlignment="Right" Width="786"/>
+    </Grid>
+</Window>
