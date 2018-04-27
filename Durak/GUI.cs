@@ -27,7 +27,6 @@ namespace Durak
         private bool cardPlayed;
         private bool playGame;
         private bool turnPlayed = false;
-        private List<Image> riverImages = new List<Image>();
 
 
         public Grid PlayerGrid
@@ -109,7 +108,6 @@ namespace Durak
                 {
                     Thickness centerMargin = new Thickness(0, topMargin + ((CenterGrid.Children.Count - 2) * - topMargin), 0, 0);                 
                     imageToMove.SetValue(Grid.MarginProperty, centerMargin);
-                    riverImages.Add(imageToMove);
                 }
                 else
                 {
@@ -141,20 +139,16 @@ namespace Durak
         {
             TurnPlayed = false;
             bool remove = false;
-           // if(currentPlayer is HumanPlayer)
-              //  System.Diagnostics.Debug.WriteLine("HUMAN PLAYER");
             foreach (Card card in currentPlayer.Cards)
             {
                 if (imageToRemove == card.myImage)
                 {
                     CurrentCard = card;
-                    //System.Diagnostics.Debug.WriteLine(CurrentCard.ToString());
                     remove = true;
                 }
             }
             if(remove)
             {
-                // If it is a computer player flip the card so you can get the image name to remove from the grid
                 if(currentPlayer is ComputerPlayer && !CurrentCard.faceUp)
                 {
                     CurrentCard.SetFaceUp();
@@ -170,14 +164,21 @@ namespace Durak
         }
 
 
-        public void RemoveRiver()
+        public void RemoveRiver(Cards riverImages)
         {
             Console.WriteLine("\nRemoving Images");
-            foreach (Image cardImage in riverImages)
+            foreach (Card card in riverImages)
             {
-                Console.WriteLine(cardImage.Name);
-                RemoveCardImage(centerGrid, cardImage);
+                CenterGrid.Children.Remove(card.myImage);
             }
+        }
+
+        public void MoveRiver(Grid toGrid)
+        {
+            //foreach (Image cardImage in riverImages)
+           // {
+                //MoveCardImage(toGrid, cardImage, 4, 0);
+            //}
         }
 
         /// <summary>
