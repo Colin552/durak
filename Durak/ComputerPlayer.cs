@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿/*
+ * Authors: Calvin Lapp, Colin Strong, Elizabeth Welch
+ * Date: May 2018 - 4/27/2018
+ * Description: Computer player class
+ */
 namespace Durak
 {
     public class ComputerPlayer : Player
@@ -13,15 +12,15 @@ namespace Durak
             Name = "Computer";
             Cards = new Cards();
         }
-        public override void Attack()
-        {
 
-        }
-        public override void Defend()
-        {
-
-        }
-
+        /// <summary>
+        /// Decides which move the computer should make.
+        /// This decision is based off of the trump suit
+        /// and the current card in play
+        /// </summary>
+        /// <param name="trump"></param>
+        /// <param name="cardInPlay"></param>
+        /// <returns></returns>
         public Card MakeMove(Suit trump, Card cardInPlay = null)
         {
             Cards playableCards = new Cards();

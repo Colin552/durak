@@ -1,7 +1,7 @@
 ﻿/*
- * 
- * 
- * 
+ * Authors: Calvin Lapp, Colin Strong, Elizabeth Welch
+ * Date: May 2018 - 4/27/2018
+ * Description: Player Class
  * 
  */
 using System;
@@ -45,9 +45,12 @@ namespace Durak
             get { return canPlayCard; }
             set { canPlayCard = value; }
         }
-        public abstract void Attack();
-        public abstract void Defend();
-
+        /// <summary>
+        /// Retreives a card from the hand
+        /// </summary>
+        /// <param name="mySuit"></param>
+        /// <param name="myRank"></param>
+        /// <returns></returns>
         public Card GetCard(Suit mySuit, Rank myRank)
         {
             Card aCard = new Card(mySuit, myRank);
