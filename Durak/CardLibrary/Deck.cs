@@ -78,6 +78,12 @@ namespace Durak
             return newDeck;
         }
 
+
+        public int CardsRemaining()
+        {
+            return cards.Count;
+        }
+
         /// <summary>
         /// Draws a card from the deck
         /// </summary>

@@ -27,7 +27,7 @@ namespace Durak
             Cards playableCards = new Cards();
             Card lowestPlayableCard = null;
 
-            //If there is a card in play
+            //If there is a card in play and the computer is reacting
             if (cardInPlay != null)
             {
                 foreach (Card card in Cards)
@@ -78,9 +78,9 @@ namespace Durak
                 }
                 
             }
-            else
+            else //If the computer is attacking
             {
-                //If the computer is attacking
+                
                 foreach (Card card in Cards)
                 {
                     if (card.suit != trump)
@@ -102,14 +102,11 @@ namespace Durak
                     {
                         if (card.suit == trump)
                         {
-                            if (card.rank > cardInPlay.rank)
-                            {
-                                playableCards.Add(card);
+                            playableCards.Add(card);
 
-                                if (lowestPlayableCard == null)
-                                {
-                                    lowestPlayableCard = card;
-                                }
+                            if (lowestPlayableCard == null)
+                            {
+                                lowestPlayableCard = card;
                             }
                         }
                     }

@@ -92,12 +92,12 @@ namespace Durak
         /// </summary>
         public void EndMove()
         {
-            System.Diagnostics.Debug.WriteLine("\nNew Move");
-            System.Diagnostics.Debug.WriteLine("Attack turn: " + attackTurn);
+            //System.Diagnostics.Debug.WriteLine("\nNew Move");
+            //System.Diagnostics.Debug.WriteLine("Attack turn: " + attackTurn);
 
             if (lastPlayer != null)
             {
-                System.Diagnostics.Debug.WriteLine(lastPlayer.Name + " played a card: " + lastPlayer.PlayedCard);
+                //System.Diagnostics.Debug.WriteLine(lastPlayer.Name + " played a card: " + lastPlayer.PlayedCard);
                 if (attackTurn == false && lastPlayer.PlayedCard == false)
                 {
                     EndTurn();
@@ -127,6 +127,24 @@ namespace Durak
                 ComputerPlayerTurn();
             }
             attackTurn = false;
+            
+            if (myDeck.CardsRemaining() == 0)
+            {
+                myGUI.RemoveDeckImage();
+                myGUI.SetDeckLabelText("NO CARDS LEFT!");
+            }
+            else
+            {
+                myGUI.SetDeckLabelText(myDeck.CardsRemaining().ToString());
+            }
+            Console.WriteLine("Computer card count: " + computerPlayer.Cards.Count);
+            Console.WriteLine("Player card count: " + humanPlayer.Cards.Count);
+
+            if (CheckForWinner())
+            {
+                // do stuff
+                Console.WriteLine("Winner");
+            }
         }
 
         public void EndTurn()
@@ -134,11 +152,12 @@ namespace Durak
             System.Diagnostics.Debug.WriteLine("ENDING TURN");
             System.Diagnostics.Debug.WriteLine("Player taking the cards: " + lastPlayer.Name);
             System.Diagnostics.Debug.WriteLine("Center Cards");
-
+       
 
             foreach (Card card in cardsInPlay)
             {
                 System.Diagnostics.Debug.WriteLine(card.ToString());
+                lastPlayer.Cards.Add(card);
             }
 
             myGUI.RemoveRiver(cardsInPlay);
