@@ -39,6 +39,7 @@ namespace Durak
 
         private Card computerDecidedCard;
         private Card currentCardInPlay;
+
         private Player currentPlayer;
         private bool attackTurn = true;
         private Player lastPlayer;
@@ -102,10 +103,7 @@ namespace Durak
                     EndTurn();
                 }
             }
-            
-
-            
-            
+         
             if (CurrentCardInPlay != null)
             {
                 Console.WriteLine("Card in play: " +CurrentCardInPlay.ToString());
@@ -133,6 +131,9 @@ namespace Durak
         public void EndTurn()
         {
             Console.WriteLine("ENDING TURN");
+            Console.WriteLine("Player taking the cards: " + lastPlayer.Name);
+
+            myGUI.RemoveRiver();
             attackTurn = true;
         }
 
