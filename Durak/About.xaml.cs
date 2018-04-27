@@ -19,6 +19,7 @@ namespace Durak
         public About()
         {
             InitializeComponent();
+            PrintAbout();
         }
         /// <summary>
         /// Fill in the about label
